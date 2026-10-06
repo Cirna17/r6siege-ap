@@ -9,7 +9,7 @@ class GoalOperators(Range):
     display_name = "Goal Operators"
 
     range_start = 1
-    range_end = 77
+    range_end = 78
     default = 10
 
 class StartingOperators(Range):
@@ -20,7 +20,7 @@ class StartingOperators(Range):
     display_name = "Starting Operators"
 
     range_start = 1
-    range_end = 77
+    range_end = 78
     default = 2
 
 class StartingOperatorBalancing(Choice):
@@ -49,7 +49,7 @@ class ExtraOperators(Range):
     display_name = "Extra Operators"
 
     range_start = 0
-    range_end = 76
+    range_end = 77
     default = 2
 
 class AllowedOperators(OptionSet):
@@ -65,7 +65,7 @@ class AllowedOperators(OptionSet):
                   "Doc", "Dokkaebi", "Echo", "Ela", "Fenrir", "Finka", "Flores", "Frost", "Fuze",
                   "Glaz", "Goyo", "Gridlock", "Grim", "Hibana", "Iana", "IQ", "Jackal", "Jager",
                   "Kaid", "Kali", "Kapkan", "Lesion", "Lion", "Maestro", "Maverick", "Melusi", "Mira",
-                  "Montagne", "Mozzie", "Mute", "Nokk", "Nomad", "Oryx", "Osa", "Pulse", "Ram",
+                  "Montagne", "Mozzie", "Mute", "Nokk", "Nomad", "Noor", "Oryx", "Osa", "Pulse", "Ram",
                   "Rauora", "Rook", "Sens", "Sentry", "Skopos", "Sledge", "Smoke", "Solid Snake", "Solis",
                   "Striker", "Tachanka", "Thatcher", "Thermite", "Thorn", "Thunderbird", "Tubarao",
                   "Twitch", "Valkyrie", "Vigil", "Wamai", "Warden", "Ying", "Zero", "Zofia"]
@@ -75,7 +75,7 @@ class AllowedOperators(OptionSet):
                   "Doc", "Dokkaebi", "Echo", "Ela", "Fenrir", "Finka", "Flores", "Frost", "Fuze",
                   "Glaz", "Goyo", "Gridlock", "Grim", "Hibana", "Iana", "IQ", "Jackal", "Jager",
                   "Kaid", "Kali", "Kapkan", "Lesion", "Lion", "Maestro", "Maverick", "Melusi", "Mira",
-                  "Montagne", "Mozzie", "Mute", "Nokk", "Nomad", "Oryx", "Osa", "Pulse", "Ram",
+                  "Montagne", "Mozzie", "Mute", "Nokk", "Nomad", "Noor", "Oryx", "Osa", "Pulse", "Ram",
                   "Rauora", "Rook", "Sens", "Sentry", "Skopos", "Sledge", "Smoke", "Solid Snake", "Solis",
                   "Striker", "Tachanka", "Thatcher", "Thermite", "Thorn", "Thunderbird", "Tubarao",
                   "Twitch", "Valkyrie", "Vigil", "Wamai", "Warden", "Ying", "Zero", "Zofia"]
@@ -375,7 +375,7 @@ class AbilitysanityStartingAbilities(Range):
     display_name = "Abilitysanity Starting Abilities"
 
     range_start = 0
-    range_end = 75
+    range_end = 78
     default = 0
 
 class AbilitysanityInLogicStartingAbilities(Range):
@@ -387,7 +387,7 @@ class AbilitysanityInLogicStartingAbilities(Range):
     display_name = "Abilitysanity In-logic Starting Abilities"
 
     range_start = 0
-    range_end = 75
+    range_end = 78
     default = 0
 
 class Gadgetsanity(Toggle):

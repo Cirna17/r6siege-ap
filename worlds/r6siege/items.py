@@ -93,116 +93,118 @@ ITEM_NAME_TO_ID = {
     "1911 TACOPS": 2003,
     "416-C Carbine": 2004,
     "417": 2005,
+    "5.7 USG": 2205,
     "552 Commando": 2006,
     "556xi": 2007,
     "6P41": 2008,
     "9mm C1": 2009,
+    "9x19SVN": 2206,
     "9x19VSN": 2010,
     "ACS12": 2011,
     "AK-12": 2012,
-    "AK-47": 2013,
-    "AK-74": 2014,
+    "AK-74M": 2014,
     "ALDA 5.56": 2015,
     "AR-15.50": 2016,
     "AR-57": 2017,
     "AR33": 2018,
     "ARX200": 2019,
-    "AUG": 2020,
-    "AUG Para": 2021,
+    "AUG A12": 2204,
+    "AUG A2": 2202,
+    "AUG A3": 2203,
     "Bailiff 410": 2022,
     "Ballistic Shield": 2023,
     "Bearing 9": 2024,
-    "Benelli M3": 2025,
-    "BOSG.12.2": 2026,
+    "BOSG. 12.2": 2026,
     "C75 Auto": 2027,
     "C7E": 2028,
     "C8-SFW": 2029,
+    "CAMRS": 2206,
     "Commando 9": 2030,
     "CSRX 300": 2031,
-    "Desert Eagle": 2032,
+    "D-50": 2032,
     "DP27": 2033,
+    "F2": 2207,
     "F90": 2034,
-    "FAMAS": 2035,
-    "Five-seven": 2036,
     "FMG-9": 2037,
     "FO-12": 2038,
     "G36C": 2039,
+    "G8A1": 2208,
     "Glaive-12": 2040,
-    "GSh-18": 2041,
-    "HK21": 2042,
-    "ITA12L": 2043,
-    "ITA12S": 2044,
-    "K1A": 2045,
-    "Keratos": 2046,
-    "L1A1": 2047,
-    "L85": 2048,
-    "LFP586": 2049,
-    "LMG-E": 2050,
-    "M1014": 2051,
-    "M12": 2052,
-    "M249": 2053,
-    "M4": 2054,
-    "M45 MEUSOC": 2055,
-    "M500": 2056,
-    "M60": 2057,
-    "M762": 2058,
-    "M870": 2059,
-    "MAC-11": 2060,
-    "Mk 14 EBR": 2061,
-    "Mk1 9mm": 2062,
-    "MP5": 2063,
-    "MP5F": 2064,
-    "MP5K": 2065,
-    "MP5SSD": 2066,
-    "MP7": 2067,
-    "MP9": 2068,
-    "MPX": 2069,
-    "Mx4 Storm": 2070,
-    "OTs-03": 2071,
-    "P-10C": 2072,
-    "P12": 2073,
-    "P226": 2074,
-    "P229": 2075,
-    "P9": 2076,
-    "P90": 2077,
-    "PARA-308": 2078,
-    "PCX-33": 2079,
-    "PDW9": 2080,
-    "PMM": 2081,
-    "PMR90A2": 2082,
-    "POF-9": 2083,
-    "PP-19 Bizon": 2084,
-    "PRB92": 2085,
-    "PSG1": 2086,
-    "Q-929": 2087,
+    "GONNE-6": 2041,
+    "GSH-18": 2042,
+    "ITA12L": 2044,
+    "ITA12S": 2045,
+    "K1A": 2046,
+    "Keratos .357": 2047,
+    "L85A2": 2049,
+    "LFP586": 2050,
+    "LMG-E": 2051,
+    "LUSION": 2209,
+    "M1014": 2052,
+    "M12": 2053,
+    "M245 SAW": 2210,
+    "M249": 2054,
+    "M4": 2055,
+    "M45 MEUSOC": 2056,
+    "M590A1": 2057,
+    "M762": 2059,
+    "M870": 2060,
+    "MK 14 EBR": 2062,
+    "MK1 9mm": 2063,
+    "MK17 CQB": 2200,
+    "MP5": 2064,
+    "MP5K": 2066,
+    "MP5SD": 2067,
+    "MP7": 2068,
+    "MPX": 2070,
+    "MX4 Storm": 2071,
+    "OTS-03": 2072,
+    "P-10C": 2073,
+    "P10 Roni": 2211,
+    "P12": 2074,
+    "P226 MK 25": 2075,
+    "P229": 2076,
+    "P9": 2077,
+    "P90": 2078,
+    "PARA-308": 2079,
+    "PCX-33": 2080,
+    "PDW9": 2081,
+    "PMM": 2082,
+    "PMR90A2": 2083,
+    "POF-9": 2084,
+    "PRB92": 2086,
+    "Q-929": 2088,
     "R4-C": 2088,
-    "RG15": 2089,
-    "RPG-7": 2090,
-    "SASG-12": 2091,
-    "SC3000K": 2092,
-    "SCAR-H CQC": 2093,
-    "Scorpion EVO 3 A1": 2094,
-    "SDP 9mm": 2095,
-    "SG-CQB": 2096,
-    "SIX12": 2097,
-    "SMG-12": 2098,
-    "SPAS-12": 2099,
-    "SPAS-15": 2100,
-    "Spear .308": 2101,
-    "SR-25": 2102,
-    "Super Shorty": 2103,
-    "SuperNova": 2104,
-    "T-5 SMG": 2105,
-    "T-95 LSW": 2106,
-    "Tacit .45": 2107,
-    "TCSG12": 2108,
-    "Type 89-F": 2109,
-    "UMP": 2110,
-    "USP": 2111,
-    "Uzi": 2112,
-    "V308": 2113,
-    "Vector .45 ACP": 2114,
-    "XK23": 2115,
+    "Reaper MK2": 2215,
+    "RG15": 2090,
+    "SASG-12": 2092,
+    "SC3000K": 2093,
+    "Scorpion Evo 3 A1": 2095,
+    "SDP 9mm": 2096,
+    "SG-CQB": 2097,
+    "SIX12": 2098,
+    "SIX12 SD": 2201,
+    "SMG-11": 2212,
+    "SMG-12": 2099,
+    "SPAS-12": 2100,
+    "SPAS-15": 2101,
+    "Spear .308": 2102,
+    "SPSMG9": 2213,
+    "SR-25": 2103,
+    "Super 90": 2214,
+    "Super Shorty": 2104,
+    "SuperNova": 2105,
+    "T-5 SMG": 2106,
+    "T-95 LSW": 2107,
+    "TACIT .45": 2108,
+    "TCSG12": 2109,
+    "Type-89": 2110,
+    "UMP45": 2111,
+    "USP40": 2112,
+    "UZK50GI": 2215,
+    "V308": 2114,
+    "Vector .45 ACP": 2115,
+    "XK23": 2116,
 
     "S.E.L.M.A Aqua Breacher": 3001,
     "Prisma": 3002,
@@ -346,6 +348,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Mute": ItemClassification.progression,
     "Nokk": ItemClassification.progression,
     "Nomad": ItemClassification.progression,
+    "Noor": ItemClassification.progression,
     "Oryx": ItemClassification.progression,
     "Osa": ItemClassification.progression,
     "Pulse": ItemClassification.progression,
@@ -375,121 +378,127 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Zero": ItemClassification.progression,
     "Zofia": ItemClassification.progression,
 
-    ".44 Mag Semi-Auto": ItemClassification.progression | ItemClassification.useful,
-    ".44 Vendetta": ItemClassification.progression | ItemClassification.useful,
-    "1911 TACOPS": ItemClassification.progression | ItemClassification.useful,
-    "416-C Carbine": ItemClassification.progression | ItemClassification.useful,
-    "417": ItemClassification.progression | ItemClassification.useful,
-    "552 Commando": ItemClassification.progression | ItemClassification.useful,
-    "556xi": ItemClassification.progression | ItemClassification.useful,
-    "6P41": ItemClassification.progression | ItemClassification.useful,
-    "9mm C1": ItemClassification.progression | ItemClassification.useful,
-    "9x19VSN": ItemClassification.progression | ItemClassification.useful,
-    "ACS12": ItemClassification.progression | ItemClassification.useful,
-    "AK-12": ItemClassification.progression | ItemClassification.useful,
-    "AK-47": ItemClassification.progression | ItemClassification.useful,
-    "AK-74": ItemClassification.progression | ItemClassification.useful,
-    "ALDA 5.56": ItemClassification.progression | ItemClassification.useful,
-    "AR-15.50": ItemClassification.progression | ItemClassification.useful,
-    "AR-57": ItemClassification.progression | ItemClassification.useful,
-    "AR33": ItemClassification.progression | ItemClassification.useful,
-    "ARX200": ItemClassification.progression | ItemClassification.useful,
-    "AUG": ItemClassification.progression | ItemClassification.useful,
-    "AUG Para": ItemClassification.progression | ItemClassification.useful,
-    "Bailiff 410": ItemClassification.progression | ItemClassification.useful,
-    "Ballistic Shield": ItemClassification.progression | ItemClassification.useful,
-    "Bearing 9": ItemClassification.progression | ItemClassification.useful,
-    "Benelli M3": ItemClassification.progression | ItemClassification.useful,
-    "BOSG.12.2": ItemClassification.progression | ItemClassification.useful,
-    "C75 Auto": ItemClassification.progression | ItemClassification.useful,
-    "C7E": ItemClassification.progression | ItemClassification.useful,
-    "C8-SFW": ItemClassification.progression | ItemClassification.useful,
-    "Commando 9": ItemClassification.progression | ItemClassification.useful,
-    "CSRX 300": ItemClassification.progression | ItemClassification.useful,
-    "Desert Eagle": ItemClassification.progression | ItemClassification.useful,
-    "DP27": ItemClassification.progression | ItemClassification.useful,
-    "F90": ItemClassification.progression | ItemClassification.useful,
-    "FAMAS": ItemClassification.progression | ItemClassification.useful,
-    "Five-seven": ItemClassification.progression | ItemClassification.useful,
-    "FMG-9": ItemClassification.progression | ItemClassification.useful,
-    "FO-12": ItemClassification.progression | ItemClassification.useful,
-    "G36C": ItemClassification.progression | ItemClassification.useful,
-    "Glaive-12": ItemClassification.progression | ItemClassification.useful,
-    "GSh-18": ItemClassification.progression | ItemClassification.useful,
-    "HK21": ItemClassification.progression | ItemClassification.useful,
-    "ITA12L": ItemClassification.progression | ItemClassification.useful,
-    "ITA12S": ItemClassification.progression | ItemClassification.useful,
-    "K1A": ItemClassification.progression | ItemClassification.useful,
-    "Keratos": ItemClassification.progression | ItemClassification.useful,
-    "L1A1": ItemClassification.progression | ItemClassification.useful,
-    "L85": ItemClassification.progression | ItemClassification.useful,
-    "LFP586": ItemClassification.progression | ItemClassification.useful,
-    "LMG-E": ItemClassification.progression | ItemClassification.useful,
-    "M1014": ItemClassification.progression | ItemClassification.useful,
-    "M12": ItemClassification.progression | ItemClassification.useful,
-    "M249": ItemClassification.progression | ItemClassification.useful,
-    "M4": ItemClassification.progression | ItemClassification.useful,
-    "M45 MEUSOC": ItemClassification.progression | ItemClassification.useful,
-    "M500": ItemClassification.progression | ItemClassification.useful,
-    "M60": ItemClassification.progression | ItemClassification.useful,
-    "M762": ItemClassification.progression | ItemClassification.useful,
-    "M870": ItemClassification.progression | ItemClassification.useful,
-    "MAC-11": ItemClassification.progression | ItemClassification.useful,
-    "Mk 14 EBR": ItemClassification.progression | ItemClassification.useful,
-    "Mk1 9mm": ItemClassification.progression | ItemClassification.useful,
-    "MP5": ItemClassification.progression | ItemClassification.useful,
-    "MP5F": ItemClassification.progression | ItemClassification.useful,
-    "MP5K": ItemClassification.progression | ItemClassification.useful,
-    "MP5SSD": ItemClassification.progression | ItemClassification.useful,
-    "MP7": ItemClassification.progression | ItemClassification.useful,
-    "MP9": ItemClassification.progression | ItemClassification.useful,
-    "MPX": ItemClassification.progression | ItemClassification.useful,
-    "Mx4 Storm": ItemClassification.progression | ItemClassification.useful,
-    "OTs-03": ItemClassification.progression | ItemClassification.useful,
-    "P-10C": ItemClassification.progression | ItemClassification.useful,
-    "P12": ItemClassification.progression | ItemClassification.useful,
-    "P226": ItemClassification.progression | ItemClassification.useful,
-    "P229": ItemClassification.progression | ItemClassification.useful,
-    "P9": ItemClassification.progression | ItemClassification.useful,
-    "P90": ItemClassification.progression | ItemClassification.useful,
-    "PARA-308": ItemClassification.progression | ItemClassification.useful,
-    "PCX-33": ItemClassification.progression | ItemClassification.useful,
-    "PDW9": ItemClassification.progression | ItemClassification.useful,
-    "PMM": ItemClassification.progression | ItemClassification.useful,
-    "PMR90A2": ItemClassification.progression | ItemClassification.useful,
-    "POF-9": ItemClassification.progression | ItemClassification.useful,
-    "PP-19 Bizon": ItemClassification.progression | ItemClassification.useful,
-    "PRB92": ItemClassification.progression | ItemClassification.useful,
-    "PSG1": ItemClassification.progression | ItemClassification.useful,
-    "Q-929": ItemClassification.progression | ItemClassification.useful,
-    "R4-C": ItemClassification.progression | ItemClassification.useful,
-    "RG15": ItemClassification.progression | ItemClassification.useful,
-    "RPG-7": ItemClassification.progression | ItemClassification.useful,
-    "SASG-12": ItemClassification.progression | ItemClassification.useful,
-    "SC3000K": ItemClassification.progression | ItemClassification.useful,
-    "SCAR-H CQC": ItemClassification.progression | ItemClassification.useful,
-    "Scorpion EVO 3 A1": ItemClassification.progression | ItemClassification.useful,
-    "SDP 9mm": ItemClassification.progression | ItemClassification.useful,
-    "SG-CQB": ItemClassification.progression | ItemClassification.useful,
-    "SIX12": ItemClassification.progression | ItemClassification.useful,
-    "SMG-12": ItemClassification.progression | ItemClassification.useful,
-    "SPAS-12": ItemClassification.progression | ItemClassification.useful,
-    "SPAS-15": ItemClassification.progression | ItemClassification.useful,
-    "Spear .308": ItemClassification.progression | ItemClassification.useful,
-    "SR-25": ItemClassification.progression | ItemClassification.useful,
-    "Super Shorty": ItemClassification.progression | ItemClassification.useful,
-    "SuperNova": ItemClassification.progression | ItemClassification.useful,
-    "T-5 SMG": ItemClassification.progression | ItemClassification.useful,
-    "T-95 LSW": ItemClassification.progression | ItemClassification.useful,
-    "Tacit .45": ItemClassification.progression | ItemClassification.useful,
-    "TCSG12": ItemClassification.progression | ItemClassification.useful,
-    "Type 89-F": ItemClassification.progression | ItemClassification.useful,
-    "UMP": ItemClassification.progression | ItemClassification.useful,
-    "USP": ItemClassification.progression | ItemClassification.useful,
-    "Uzi": ItemClassification.progression | ItemClassification.useful,
-    "V308": ItemClassification.progression | ItemClassification.useful,
-    "Vector .45 ACP": ItemClassification.progression | ItemClassification.useful,
-    "XK23": ItemClassification.progression | ItemClassification.useful,
+    ".44 Mag Semi-Auto": ItemClassification.progression,
+    ".44 Vendetta": ItemClassification.progression,
+    "1911 TACOPS": ItemClassification.progression,
+    "416-C Carbine": ItemClassification.progression,
+    "417": ItemClassification.progression,
+    "5.7 USG": ItemClassification.progression,
+    "552 Commando": ItemClassification.progression,
+    "556xi": ItemClassification.progression,
+    "6P41": ItemClassification.progression,
+    "9mm C1": ItemClassification.progression,
+    "9x19SVN": ItemClassification.progression,
+    "9x19VSN": ItemClassification.progression,
+    "ACS12": ItemClassification.progression,
+    "AK-12": ItemClassification.progression,
+    "AK-47": ItemClassification.progression,
+    "AK-74M": ItemClassification.progression,
+    "ALDA 5.56": ItemClassification.progression,
+    "AR-15.50": ItemClassification.progression,
+    "AR-57": ItemClassification.progression,
+    "AR33": ItemClassification.progression,
+    "ARX200": ItemClassification.progression,
+    "AUG A2": ItemClassification.progression,
+    "AUG A3": ItemClassification.progression,
+    "AUG A12": ItemClassification.progression,
+    "Bailiff 410": ItemClassification.progression,
+    "Ballistic Shield": ItemClassification.progression,
+    "Bearing 9": ItemClassification.progression,
+    "Benelli M3": ItemClassification.progression,
+    "BOSG. 12.2": ItemClassification.progression,
+    "C75 Auto": ItemClassification.progression,
+    "C7E": ItemClassification.progression,
+    "C8-SFW": ItemClassification.progression,
+    "CAMRS": ItemClassification.progression,
+    "Commando 9": ItemClassification.progression,
+    "CSRX 300": ItemClassification.progression,
+    "D-50": ItemClassification.progression,
+    "DP27": ItemClassification.progression,
+    "F2": ItemClassification.progression,
+    "F90": ItemClassification.progression,
+    "FMG-9": ItemClassification.progression,
+    "FO-12": ItemClassification.progression,
+    "G36C": ItemClassification.progression,
+    "G8A1": ItemClassification.progression,
+    "Glaive-12": ItemClassification.progression,
+    "GONNE-6": ItemClassification.progression,
+    "GSH-18": ItemClassification.progression,
+    "HK21": ItemClassification.progression,
+    "ITA12L": ItemClassification.progression,
+    "ITA12S": ItemClassification.progression,
+    "K1A": ItemClassification.progression,
+    "Keratos .357": ItemClassification.progression,
+    "L1A1": ItemClassification.progression,
+    "L85A2": ItemClassification.progression,
+    "LFP586": ItemClassification.progression,
+    "LMG-E": ItemClassification.progression,
+    "LUSION": ItemClassification.progression,
+    "M1014": ItemClassification.progression,
+    "M12": ItemClassification.progression,
+    "M245 SAW": ItemClassification.progression,
+    "M249": ItemClassification.progression,
+    "M4": ItemClassification.progression,
+    "M45 MEUSOC": ItemClassification.progression,
+    "M590A1": ItemClassification.progression,
+    "M762": ItemClassification.progression,
+    "M870": ItemClassification.progression,
+    "MK 14 EBR": ItemClassification.progression,
+    "MK1 9mm": ItemClassification.progression,
+    "MK17 CQB": ItemClassification.progression,
+    "MP5": ItemClassification.progression,
+    "MP5K": ItemClassification.progression,
+    "MP5SD": ItemClassification.progression,
+    "MP7": ItemClassification.progression,
+    "MPX": ItemClassification.progression,
+    "MX4 Storm": ItemClassification.progression,
+    "OTS-03": ItemClassification.progression,
+    "P-10C": ItemClassification.progression,
+    "P10 Roni": ItemClassification.progression,
+    "P12": ItemClassification.progression,
+    "P226 MK 25": ItemClassification.progression,
+    "P229": ItemClassification.progression,
+    "P9": ItemClassification.progression,
+    "P90": ItemClassification.progression,
+    "PARA-308": ItemClassification.progression,
+    "PCX-33": ItemClassification.progression,
+    "PDW9": ItemClassification.progression,
+    "PMM": ItemClassification.progression,
+    "PMR90A2": ItemClassification.progression,
+    "POF-9": ItemClassification.progression,
+    "PRB92": ItemClassification.progression,
+    "Q-929": ItemClassification.progression,
+    "R4-C": ItemClassification.progression,
+    "Reaper MK2": ItemClassification.progression,
+    "RG15": ItemClassification.progression,
+    "SASG-12": ItemClassification.progression,
+    "SC3000K": ItemClassification.progression,
+    "Scorpion Evo 3 A1": ItemClassification.progression,
+    "SDP 9mm": ItemClassification.progression,
+    "SG-CQB": ItemClassification.progression,
+    "SIX12": ItemClassification.progression,
+    "SIX12 SD": ItemClassification.progression,
+    "SMG-11": ItemClassification.progression,
+    "SMG-12": ItemClassification.progression,
+    "SPAS-12": ItemClassification.progression,
+    "SPAS-15": ItemClassification.progression,
+    "Spear .308": ItemClassification.progression,
+    "SPSMG9": ItemClassification.progression,
+    "SR-25": ItemClassification.progression,
+    "Super 90": ItemClassification.progression,
+    "Super Shorty": ItemClassification.progression,
+    "SuperNova": ItemClassification.progression,
+    "T-5 SMG": ItemClassification.progression,
+    "T-95 LSW": ItemClassification.progression,
+    "TACIT .45": ItemClassification.progression,
+    "TCSG12": ItemClassification.progression,
+    "Type-89": ItemClassification.progression,
+    "UMP45": ItemClassification.progression,
+    "USP40": ItemClassification.progression,
+    "UZK50GI": ItemClassification.progression,
+    "V308": ItemClassification.progression,
+    "Vector .45 ACP": ItemClassification.progression,
+    "XK23": ItemClassification.progression,
 
     "S.E.L.M.A Aqua Breacher": ItemClassification.progression,
     "Prisma": ItemClassification.progression,
@@ -563,20 +572,20 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Argus Launcher": ItemClassification.progression,
     "KS79 Lifeline": ItemClassification.progression,
 
-    "Breach Charge": ItemClassification.progression | ItemClassification.useful,
-    "Claymore": ItemClassification.progression | ItemClassification.useful,
-    "Frag Grenade": ItemClassification.progression | ItemClassification.useful,
-    "Hard Breach Charge": ItemClassification.progression | ItemClassification.useful,
-    "Impact EMP Grenade": ItemClassification.progression | ItemClassification.useful,
-    "Smoke Grenade": ItemClassification.progression | ItemClassification.useful,
-    "Stun Grenade": ItemClassification.progression | ItemClassification.useful,
-    "Impact Grenade": ItemClassification.progression | ItemClassification.useful,
-    "Deployable Shield": ItemClassification.progression | ItemClassification.useful,
-    "Barbed Wire": ItemClassification.progression | ItemClassification.useful,
-    "Bulletproof Camera": ItemClassification.progression | ItemClassification.useful,
-    "Nitro Cell": ItemClassification.progression | ItemClassification.useful,
-    "Proximity Alarm": ItemClassification.progression | ItemClassification.useful,
-    "Observation Blocker": ItemClassification.progression | ItemClassification.useful,
+    "Breach Charge": ItemClassification.progression,
+    "Claymore": ItemClassification.progression,
+    "Frag Grenade": ItemClassification.progression,
+    "Hard Breach Charge": ItemClassification.progression,
+    "Impact EMP Grenade": ItemClassification.progression,
+    "Smoke Grenade": ItemClassification.progression,
+    "Stun Grenade": ItemClassification.progression,
+    "Impact Grenade": ItemClassification.progression,
+    "Deployable Shield": ItemClassification.progression,
+    "Barbed Wire": ItemClassification.progression,
+    "Bulletproof Camera": ItemClassification.progression,
+    "Nitro Cell": ItemClassification.progression,
+    "Proximity Alarm": ItemClassification.progression,
+    "Observation Blocker": ItemClassification.progression,
     
     "Siege Filler Item": ItemClassification.filler
 }
@@ -588,47 +597,13 @@ def get_random_filler_item_name(world: R6SiegeWorld) -> str:
     return "Siege Filler Item"
 
 def create_item_with_correct_classification(world: R6SiegeWorld, name: str) -> R6SiegeWorld:
-    classification = DEFAULT_ITEM_CLASSIFICATIONS[name]
-    
-    if floor(ITEM_NAME_TO_ID[name] / 1000) == 2:
-        classification = assign_weapon_classification(world, name)
-        
-    if floor(ITEM_NAME_TO_ID[name] / 1000) == 4:
-        classification = assign_gadget_classification(world, name)
-        
-    return R6SiegeItem(name, classification, ITEM_NAME_TO_ID[name], world.player)
+    return R6SiegeItem(name, DEFAULT_ITEM_CLASSIFICATIONS[name], ITEM_NAME_TO_ID[name], world.player)
 
-def assign_weapon_classification(world: R6SiegeWorld, weapon: str) -> ItemClassification:
-    operators = [generation.name_to_operator_data(operator) for operator in world.selected_operators]
-    
-    match world.options.weaponsanity_logic.value:
-        
-        case world.options.weaponsanity_logic.option_any_weapon:
-            return ItemClassification.progression
-        
-        case world.options.weaponsanity_logic.option_any_primary:
-            for operator in operators:
-                if weapon in operator.primary_weapons or operator.viable_weapons:
-                    return ItemClassification.progression
-            return ItemClassification.useful
-        
-        case world.options.weaponsanity_logic.option_any_viable_weapon:
-            for operator in operators:
-                if weapon in operator.viable_weapons:
-                    return ItemClassification.progression
-            return ItemClassification.useful
-        
-        case world.options.weaponsanity_logic.option_most_popular_weapon:
-            for operator in operators:
-                if weapon in operator.most_popular_weapons:
-                    return ItemClassification.progression
-            return ItemClassification.useful
-
-def create_weapons(world: R6SiegeWorld) -> list[R6SiegeItem]:
+def create_weapons(world: R6SiegeWorld, starting_operators: list[str]) -> list[R6SiegeItem]:
     weapon_names: list[str] = []
     weapon_items: list[R6SiegeItem] = []
 
-    operators = [generation.name_to_operator_data(operator) for operator in world.starting_operators]
+    operators = [generation.name_to_operator_data(operator) for operator in starting_operators]
 
     for operator in operators:
         for weapon in operator.primary_weapons + operator.secondary_weapons:
@@ -640,29 +615,11 @@ def create_weapons(world: R6SiegeWorld) -> list[R6SiegeItem]:
 
     return weapon_items
 
-def assign_gadget_classification(world: R6SiegeWorld, gadget: str) -> ItemClassification:
-    striker_in_pool = "Striker" in world.selected_operators
-    sentry_in_pool = "Sentry" in world.selected_operators
-
-    if striker_in_pool and world.options.easy_challenges.value and not world.options.abilitysanity_gadget_kit.value:
-        if gadget == "Breach Charge" or gadget == "Claymore" or gadget == "Hard Breach Charge":
-            return ItemClassification.progression
-
-    if sentry_in_pool and world.options.easy_challenges.value and not world.options.abilitysanity_gadget_kit.value:
-        if gadget == "Barbed Wire" or gadget == "Bulletproof Camera" or gadget == "Deployable Shield" or gadget == "Observation Blocker" or gadget == "Proximity Alarm":
-            return ItemClassification.progression
-
-    if sentry_in_pool and world.options.hard_challenges.value and not world.options.abilitysanity_gadget_kit.value:
-        if gadget == "Nitro Cell" or gadget == "Impact Grenade" or gadget == "Bulletproof Camera":
-            return ItemClassification.progression
-
-    return ItemClassification.useful
-
-def create_gadgets(world: R6SiegeWorld) -> list[R6SiegeItem]:
+def create_gadgets(world: R6SiegeWorld, starting_operator: list[str]) -> list[R6SiegeItem]:
     gadget_names: list[str] = []
     gadget_items: list[R6SiegeItem] = []
 
-    operators = [generation.name_to_operator_data(operator) for operator in world.selected_operators]
+    operators = [generation.name_to_operator_data(operator) for operator in starting_operator]
 
     for operator in operators:
         for gadget in operator.gadgets:
@@ -674,19 +631,19 @@ def create_gadgets(world: R6SiegeWorld) -> list[R6SiegeItem]:
 
     return gadget_items
             
-def give_in_logic_weaponsanity_item(name: str, world: R6SiegeWorld) -> str:
+def give_in_logic_weaponsanity_item(world: R6SiegeWorld, name: str) -> str:
     name = generation.name_to_operator_data(name)
     match world.options.weaponsanity_logic.value:
-        case world.options.weaponsanity_logic.option_any_weapon.value:
+        case world.options.weaponsanity_logic.option_any_weapon:
             return world.random.choice(name.primary_weapons + name.secondary_weapons)
         
-        case world.options.weaponsanity_logic.option_any_primary.value:
+        case world.options.weaponsanity_logic.option_any_primary:
             return world.random.choice(name.primary_weapons)
         
-        case world.options.weaponsanity_logic.option_any_viable_weapon.value:
+        case world.options.weaponsanity_logic.option_any_viable_weapon:
             return world.random.choice(name.viable_weapons)
         
-        case world.options.weaponsanity_logic.option_most_popular_weapon.value:
+        case world.options.weaponsanity_logic.option_most_popular_weapon:
             return world.random.choice(name.most_popular_weapons)
 
 def create_starting_operators(world: R6SiegeWorld) -> list[str]:
@@ -743,10 +700,10 @@ def create_all_items(world: R6SiegeWorld) -> None:
     print(starting_operators)
     
     if world.options.weaponsanity.value:
-        weapons = create_weapons(world)
+        weapons = create_weapons(world, starting_operators)
         
     if world.options.gadgetsanity.value:
-        gadgets = create_gadgets(world)
+        gadgets = create_gadgets(world, starting_operators)
         
     given_weapons = 0
     given_abilities = 0
@@ -759,12 +716,12 @@ def create_all_items(world: R6SiegeWorld) -> None:
             world.push_precollected(world.create_item(operator))
 
             if world.options.weaponsanity.value and given_weapons < world.options.weaponsanity_in_logic_starting_weapons.value:
-                selected_weapon = give_in_logic_weaponsanity_item(operator, world)
+                selected_weapon = give_in_logic_weaponsanity_item(world, operator)
                 world.push_precollected(world.create_item(selected_weapon))
 
-                for remaining_weapon in len(range(weapons)):
-                    if selected_weapon == weapons[remaining_weapon].name:
-                        del weapons[remaining_weapon]
+                for remaining_weapon_index, remaining_weapon in enumerate(weapons):
+                    if selected_weapon == remaining_weapon.name:
+                        del weapons[remaining_weapon_index]
 
                 given_weapons += 1
 

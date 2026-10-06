@@ -29,8 +29,11 @@ class R6SiegeWorld(World):
         self.selected_operators = self.random.sample(sorted(self.options.allowed_operators.value),
                                                  k = self.options.goal_operators.value + self.options.extra_operators.value)
         
-        items.create_all_items(self)
+    def create_regions(self):
         generation.create_locations_regions_and_rules(self)
+        
+    def create_items(self):
+        items.create_all_items(self)
 
     def create_item(self, name: str) -> items.R6SiegeItem:
         return items.create_item_with_correct_classification(self, name)
@@ -41,7 +44,7 @@ class R6SiegeWorld(World):
     def fill_slot_data(self) -> Mapping[str, Any]:
         return self.options.as_dict(
             "kill_threshold", "kill_threshold_amount", "kill_threshold_assists", "global_kill_counter", "global_kill_counter_count",
-            "global_kill_counter_kill_threshold_behavior", "easy_challenges", "easy_challenges_multiplier", "hard_challenges",
-            "hard_challenges_multiplier", "challenge_assists", "weaponsanity", "weaponsanity_logic", "weaponsanity_logic_behavior",
+            "global_kill_counter_kill_threshold_behavior", "easy_challenges", "easy_challenge_multiplier", "hard_challenges",
+            "hard_challenge_multiplier", "challenge_assists", "weaponsanity", "weaponsanity_logic", "weaponsanity_logic_behavior",
             "weaponsanity_all_weapons_kill_threshold", "abilitysanity", "abilitysanity_gadget_kit", "gadgetsanity"
         )
