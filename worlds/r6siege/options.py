@@ -356,6 +356,23 @@ class Abilitysanity(Toggle):
     """
 
     display_name = "Abilitysanity"
+    
+class AbilitysanityLocksKillThreshold(Choice):
+    """
+    Not having an operator's ability also affects their kill threshold.
+    Out-of-logic: the operator's kills aren't in logic.
+    Lock: the kill threshold buttons are locked.
+    Disabled: the kill threshold remains available.
+    """
+    
+    display_name = "Abilitysanity Locks Kill Threshold"
+    
+    option_out_of_logic = 0
+    option_lock = 1
+    option_disabled = 2
+    
+    default = option_disabled
+    
 
 class AbilitysanityGadgetKit(Toggle):
     """
@@ -430,6 +447,7 @@ class R6SiegeOptions(PerGameCommonOptions):
     weaponsanity_in_logic_starting_weapons: WeaponsanityInLogicStartingWeapons
     weaponsanity_all_weapons_kill_threshold: WeaponsanityAllWeaponsKillThreshold
     abilitysanity: Abilitysanity
+    abilitysanity_locks_kill_threshold: AbilitysanityLocksKillThreshold
     abilitysanity_gadget_kit: AbilitysanityGadgetKit
     abilitysanity_starting_abilities: AbilitysanityStartingAbilities
     abilitysanity_in_logic_starting_abilities: AbilitysanityInLogicStartingAbilities
@@ -458,7 +476,7 @@ option_groups = [
     ),
     OptionGroup(
         "Abilitysanity",
-        [Abilitysanity, AbilitysanityGadgetKit, AbilitysanityStartingAbilities, AbilitysanityInLogicStartingAbilities]
+        [Abilitysanity, AbilitysanityLocksKillThreshold, AbilitysanityGadgetKit, AbilitysanityStartingAbilities, AbilitysanityInLogicStartingAbilities]
     ),
     OptionGroup(
         "Gadgetsanity",

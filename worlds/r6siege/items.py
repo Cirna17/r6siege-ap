@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 from BaseClasses import Item, ItemClassification
 from math import floor
 
-from . import generation, operator_data
+from . import generation, operator_data #I know the IDE marks operator_data as unused but you have to keep it in or else it crashes
 
 if TYPE_CHECKING:
     from .world import R6SiegeWorld
@@ -206,27 +206,27 @@ ITEM_NAME_TO_ID = {
     "Vector .45 ACP": 2115,
     "XK23": 2116,
 
-    "S.E.L.M.A Aqua Breacher": 3001,
+    "S.E.L.M.A. Aqua Breacher": 3001,
     "Prisma": 3002,
     "Garra Hook": 3003,
-    "Surya Gate": 3004,
+    "Surya Laser Gate": 3004,
     "Breaching Round": 3005,
     "Kiba Barrier": 3006,
     "Shock Wire": 3007,
     "H.U.L.L. Adaptable Shield": 3008,
-    "G52-Tactical Shield": 3009,
+    "G-52 Tactical Shield": 3009,
     "Kludge Drone": 3010,
     "Skeleton Key": 3011,
     "Tactical Crossbow": 3012,
     "Armor Panel": 3013,
     "Silent Step": 3014,
-    "CCE Shield Mk2": 3015,
+    "CCE Shield MK2": 3015,
     "Deathmark Tracker": 3016,
     "T.R.I.P. Connector": 3017,
     "Stim Pistol": 3018,
     "Jegeo Payload": 3019,
     "Yokai": 3020,
-    "Grzmot Mine": 3021,
+    "GRZMOT Mine": 3021,
     "F-NATT Dread Mine": 3022,
     "Adrenal Surge": 3023,
     "RCE-Ratero Charge": 3034,
@@ -234,13 +234,14 @@ ITEM_NAME_TO_ID = {
     "Cluster Charge": 3026,
     "Flip Sight": 3027,
     "Volcan Canister": 3028,
+    "Trax Stingers": 3100,
     "Kawan Hive Launcher": 3029,
     "X-Kairos": 3030,
     "Gemini Replicator": 3031,
     "Electronics Detector": 3032,
     "Eyenox Model III": 3033,
     "Active Defense System": 3034,
-    "RTILLA Electroclaw": 3035,
+    "Rtila Electroclaw": 3035,
     "LV Explosive Lance": 3036,
     "Entry Denial Device": 3037,
     "Gu": 3038,
@@ -252,7 +253,7 @@ ITEM_NAME_TO_ID = {
     "Le Roc Shield": 3044,
     "Pest Launcher": 3045,
     "Signal Disruptor": 3046,
-    "Hel Presence Reduction": 3047,
+    "HEL Presence Reduction": 3047,
     "Airjab Launcher": 3048,
     "Horus Lance Launcher": 3049,
     "Remah Dash": 3050,
@@ -262,7 +263,12 @@ ITEM_NAME_TO_ID = {
     "D.O.M. Panel Launcher": 3054,
     "Armor Pack": 3055,
     "R.O.U. Projector System": 3056,
-    "Gadget Kit": 3057,
+    "V10 Pantheon Shells": 3101,
+    "Breaching Hammer": 3102,
+    "Remote Gas Grenade": 3103,
+    "Soliton Radar MK III": 3104,
+    "SPEC-IO Electro-Sensor": 3105,
+    "Gadget Kit": 3057, 
     "Shumikha Launcher": 3058,
     "E.G.S. Disruptor": 3059,
     "Exothermic Charge": 3060,
@@ -500,27 +506,27 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Vector .45 ACP": ItemClassification.progression,
     "XK23": ItemClassification.progression,
 
-    "S.E.L.M.A Aqua Breacher": ItemClassification.progression,
+    "S.E.L.M.A. Aqua Breacher": ItemClassification.progression,
     "Prisma": ItemClassification.progression,
     "Garra Hook": ItemClassification.progression,
-    "Surya Gate": ItemClassification.progression,
+    "Surya Laser Gate": ItemClassification.progression,
     "Breaching Round": ItemClassification.progression,
     "Kiba Barrier": ItemClassification.progression,
     "Shock Wire": ItemClassification.progression,
     "H.U.L.L. Adaptable Shield": ItemClassification.progression,
-    "G52-Tactical Shield": ItemClassification.progression,
+    "G-52 Tactical Shield": ItemClassification.progression,
     "Kludge Drone": ItemClassification.progression,
     "Skeleton Key": ItemClassification.progression,
     "Tactical Crossbow": ItemClassification.progression,
     "Armor Panel": ItemClassification.progression,
     "Silent Step": ItemClassification.progression,
-    "CCE Shield Mk2": ItemClassification.progression,
+    "CCE Shield MK2": ItemClassification.progression,
     "Deathmark Tracker": ItemClassification.progression,
     "T.R.I.P. Connector": ItemClassification.progression,
     "Stim Pistol": ItemClassification.progression,
     "Jegeo Payload": ItemClassification.progression,
     "Yokai": ItemClassification.progression,
-    "Grzmot Mine": ItemClassification.progression,
+    "GRZMOT Mine": ItemClassification.progression,
     "F-NATT Dread Mine": ItemClassification.progression,
     "Adrenal Surge": ItemClassification.progression,
     "RCE-Ratero Charge": ItemClassification.progression,
@@ -528,13 +534,14 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Cluster Charge": ItemClassification.progression,
     "Flip Sight": ItemClassification.progression,
     "Volcan Canister": ItemClassification.progression,
+    "Trax Stingers": ItemClassification.progression,
     "Kawan Hive Launcher": ItemClassification.progression,
     "X-Kairos": ItemClassification.progression,
     "Gemini Replicator": ItemClassification.progression,
     "Electronics Detector": ItemClassification.progression,
     "Eyenox Model III": ItemClassification.progression,
     "Active Defense System": ItemClassification.progression,
-    "RTILLA Electroclaw": ItemClassification.progression,
+    "Rtila Electroclaw": ItemClassification.progression,
     "LV Explosive Lance": ItemClassification.progression,
     "Entry Denial Device": ItemClassification.progression,
     "Gu": ItemClassification.progression,
@@ -546,7 +553,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Le Roc Shield": ItemClassification.progression,
     "Pest Launcher": ItemClassification.progression,
     "Signal Disruptor": ItemClassification.progression,
-    "Hel Presence Reduction": ItemClassification.progression,
+    "HEL Presence Reduction": ItemClassification.progression,
     "Airjab Launcher": ItemClassification.progression,
     "Horus Lance Launcher": ItemClassification.progression,
     "Remah Dash": ItemClassification.progression,
@@ -556,6 +563,11 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "D.O.M. Panel Launcher": ItemClassification.progression,
     "Armor Pack": ItemClassification.progression,
     "R.O.U. Projector System": ItemClassification.progression,
+    "V10 Pantheon Shells": ItemClassification.progression,
+    "Breaching Hammer": ItemClassification.progression,
+    "Remote Gas Grenade": ItemClassification.progression,
+    "Soliton Radar MK III": ItemClassification.progression,
+    "SPEC-IO Electro-Sensor": ItemClassification.progression,
     "Gadget Kit": ItemClassification.progression,
     "Shumikha Launcher": ItemClassification.progression,
     "E.G.S. Disruptor": ItemClassification.progression,
@@ -695,7 +707,7 @@ def create_starting_operators(world: R6SiegeWorld) -> list[str]:
 
 def create_all_items(world: R6SiegeWorld) -> None:
     print(world.selected_operators)
-    itempool: list[Item] = []
+    itempool: list[R6SiegeItem] = []
     starting_operators = create_starting_operators(world)
     print(starting_operators)
     
@@ -772,6 +784,7 @@ def create_all_items(world: R6SiegeWorld) -> None:
                     if "Gadget Kit" not in world.item_names:
                         itempool.append(world.create_item("Gadget Kit"))
                 
+    itempool.extend(gadgets)
     number_of_items = len(itempool)
     number_of_unfilled_locations = len(world.multiworld.get_unfilled_locations(world.player))
     needed_number_of_filler_items = number_of_unfilled_locations - number_of_items
