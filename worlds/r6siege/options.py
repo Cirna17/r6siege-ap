@@ -79,6 +79,46 @@ class AllowedOperators(OptionSet):
                   "Rauora", "Rook", "Sens", "Sentry", "Skopos", "Sledge", "Smoke", "Solid Snake", "Solis",
                   "Striker", "Tachanka", "Thatcher", "Thermite", "Thorn", "Thunderbird", "Tubarao",
                   "Twitch", "Valkyrie", "Vigil", "Wamai", "Warden", "Ying", "Zero", "Zofia"]
+    
+class ForcedSelectedOperators(OptionSet):
+    """
+    These operators will be added into the pool.
+    For each operator here, 1 less operator will be randomly chosen.
+    """
+    
+    display_name = "Forced Selected Operators"
+    
+    valid_keys = ["Ace", "Alibi", "Amaru", "Aruni", "Ash", "Azami", "Bandit", "Blackbeard", "Blitz",
+                    "Brava", "Buck", "Capitao", "Castle", "Caveira", "Clash", "Deimos", "Denari",
+                    "Doc", "Dokkaebi", "Echo", "Ela", "Fenrir", "Finka", "Flores", "Frost", "Fuze",
+                    "Glaz", "Goyo", "Gridlock", "Grim", "Hibana", "Iana", "IQ", "Jackal", "Jager",
+                    "Kaid", "Kali", "Kapkan", "Lesion", "Lion", "Maestro", "Maverick", "Melusi", "Mira",
+                    "Montagne", "Mozzie", "Mute", "Nokk", "Nomad", "Noor", "Oryx", "Osa", "Pulse", "Ram",
+                    "Rauora", "Rook", "Sens", "Sentry", "Skopos", "Sledge", "Smoke", "Solid Snake", "Solis",
+                    "Striker", "Tachanka", "Thatcher", "Thermite", "Thorn", "Thunderbird", "Tubarao",
+                    "Twitch", "Valkyrie", "Vigil", "Wamai", "Warden", "Ying", "Zero", "Zofia"]
+    
+    default = []
+    
+class ForcedStartingOperators(OptionSet):
+    """
+    These operators will be part of your starting operators.
+    For each operator here, 1 less operator will be randomly chosen.
+    """
+    
+    display_name = "Forced Starting Operators"
+    
+    valid_keys = ["Ace", "Alibi", "Amaru", "Aruni", "Ash", "Azami", "Bandit", "Blackbeard", "Blitz",
+                    "Brava", "Buck", "Capitao", "Castle", "Caveira", "Clash", "Deimos", "Denari",
+                    "Doc", "Dokkaebi", "Echo", "Ela", "Fenrir", "Finka", "Flores", "Frost", "Fuze",
+                    "Glaz", "Goyo", "Gridlock", "Grim", "Hibana", "Iana", "IQ", "Jackal", "Jager",
+                    "Kaid", "Kali", "Kapkan", "Lesion", "Lion", "Maestro", "Maverick", "Melusi", "Mira",
+                    "Montagne", "Mozzie", "Mute", "Nokk", "Nomad", "Noor", "Oryx", "Osa", "Pulse", "Ram",
+                    "Rauora", "Rook", "Sens", "Sentry", "Skopos", "Sledge", "Smoke", "Solid Snake", "Solis",
+                    "Striker", "Tachanka", "Thatcher", "Thermite", "Thorn", "Thunderbird", "Tubarao",
+                    "Twitch", "Valkyrie", "Vigil", "Wamai", "Warden", "Ying", "Zero", "Zofia"]
+    
+    default = []
 
 class KillThreshold(DefaultOnToggle):
     """
@@ -309,6 +349,13 @@ class WeaponsanityLogicBehavior(Choice):
     option_lock_all = 3
 
     default = option_out_of_logic_all
+    
+class WeaponsanityLogicBehaviorIncludeOutOfLogicWeapons(DefaultOnToggle):
+    """
+    Changes whether or not out of logic weapons will be in the item pool.
+    """
+    
+    display_name = "Weaponsanity Logic Behavior: Include Out-of-logic Weapons"
 
 class WeaponsanityStartingWeapons(Range):
     """
@@ -386,14 +433,13 @@ class AbilitysanityGadgetKit(Toggle):
 class AbilitysanityStartingAbilities(Range):
     """
     The amount of abilities you start with.
-    The abilities will be for your starting operator(s) if possible.
     """
 
     display_name = "Abilitysanity Starting Abilities"
 
     range_start = 0
     range_end = 78
-    default = 0
+    default = 1
 
 class AbilitysanityInLogicStartingAbilities(Range):
     """
@@ -405,7 +451,7 @@ class AbilitysanityInLogicStartingAbilities(Range):
 
     range_start = 0
     range_end = 78
-    default = 0
+    default = 1
 
 class Gadgetsanity(Toggle):
     """
@@ -415,6 +461,20 @@ class Gadgetsanity(Toggle):
     """
 
     display_name = "Gadgetsanity"
+    
+class GadgetsanityStartingGadgets(Range):
+    """
+    The amount of gadgets you'll start with.
+    If the value is greater than the gadgets in the pool, you'll start with all gadgets in the pool.
+    In-logic starting gadgets for Striker and Sentry are handled in abilitysanity_in_logic_starting_abilities.
+    """
+    
+    display_name = "Gadgetsanity Starting Gadgets"
+    
+    range_start = 0
+    range_end = 13
+    default = 0
+    
 
 @dataclass
 class R6SiegeOptions(PerGameCommonOptions):
@@ -423,6 +483,8 @@ class R6SiegeOptions(PerGameCommonOptions):
     starting_operator_balancing: StartingOperatorBalancing
     extra_operators: ExtraOperators
     allowed_operators: AllowedOperators
+    forced_selected_operators: ForcedSelectedOperators
+    forced_starting_operators: ForcedStartingOperators
     kill_threshold: KillThreshold
     kill_threshold_amount: KillThresholdAmount
     kill_threshold_value: KillThresholdValue
@@ -443,6 +505,7 @@ class R6SiegeOptions(PerGameCommonOptions):
     weaponsanity: Weaponsanity
     weaponsanity_logic: WeaponsanityLogic
     weaponsanity_logic_behavior: WeaponsanityLogicBehavior
+    weaponsanity_logic_behavior_include_out_of_logic_weapons: WeaponsanityLogicBehaviorIncludeOutOfLogicWeapons
     weaponsanity_starting_weapons: WeaponsanityStartingWeapons
     weaponsanity_in_logic_starting_weapons: WeaponsanityInLogicStartingWeapons
     weaponsanity_all_weapons_kill_threshold: WeaponsanityAllWeaponsKillThreshold
@@ -452,11 +515,12 @@ class R6SiegeOptions(PerGameCommonOptions):
     abilitysanity_starting_abilities: AbilitysanityStartingAbilities
     abilitysanity_in_logic_starting_abilities: AbilitysanityInLogicStartingAbilities
     gadgetsanity: Gadgetsanity
+    gadgetsanity_starting_gadgets: GadgetsanityStartingGadgets
 
 option_groups = [
     OptionGroup(
         "Operators",
-        [GoalOperators, StartingOperators, StartingOperatorBalancing, ExtraOperators, AllowedOperators]
+        [GoalOperators, StartingOperators, StartingOperatorBalancing, ExtraOperators, AllowedOperators, ForcedSelectedOperators, ForcedStartingOperators]
     ),
     OptionGroup(
         "Kill Threshold",
@@ -472,7 +536,7 @@ option_groups = [
     ),
     OptionGroup(
         "Weaponsanity",
-        [Weaponsanity, WeaponsanityLogic, WeaponsanityLogicBehavior, WeaponsanityStartingWeapons, WeaponsanityInLogicStartingWeapons,  WeaponsanityAllWeaponsKillThreshold]
+        [Weaponsanity, WeaponsanityLogic, WeaponsanityLogicBehavior, WeaponsanityLogicBehaviorIncludeOutOfLogicWeapons, WeaponsanityStartingWeapons, WeaponsanityInLogicStartingWeapons,  WeaponsanityAllWeaponsKillThreshold]
     ),
     OptionGroup(
         "Abilitysanity",
@@ -480,6 +544,6 @@ option_groups = [
     ),
     OptionGroup(
         "Gadgetsanity",
-        [Gadgetsanity]
+        [Gadgetsanity, GadgetsanityStartingGadgets]
     )
 ]

@@ -26,8 +26,12 @@ class R6SiegeWorld(World):
     selected_operators = []
 
     def generate_early(self) -> None:
+        for operator in self.options.forced_selected_operators.value:
+            self.options.allowed_operators.value.discard(operator)
+                
         self.selected_operators = self.random.sample(sorted(self.options.allowed_operators.value),
-                                                 k = self.options.goal_operators.value + self.options.extra_operators.value)
+                                                 k = self.options.goal_operators.value + self.options.extra_operators.value 
+                                                 - len(self.options.forced_selected_operators.value)) + list(self.options.forced_selected_operators.value)
         
     def create_regions(self):
         generation.create_locations_regions_and_rules(self)

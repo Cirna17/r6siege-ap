@@ -59,13 +59,16 @@ def create_abilitysanity_rule(world: R6SiegeWorld, operator: str, challenge_type
     if world.options.gadgetsanity.value and not world.options.abilitysanity_gadget_kit.value:
         
         if operator == "Striker":
-            return HasAny("Breach Charge", "Claymore", "Hard Breach Charge")
+            if challenge_type == "Easy":
+                return HasAny(*operator_data.striker_easy_challenge_gadgets)
+            else:
+                return HasAny(*operator_data.striker_hard_challenge_gadgets)
         
         elif operator == "Sentry":
             if challenge_type == "Easy":
-                return HasAny("Barbed Wire", "Bulletproof Camera", "Deployable Shield", "Observation Blocker", "Proximity Alarm")
+                return HasAny(*operator_data.sentry_easy_challenge_gadgets)
             else:
-                return HasAny("Nitro Cell", "Impact Grenade" "Bulletproof Camera")
+                return HasAny(*operator_data.sentry_hard_challenge_gadgets)
                 
         else:
             return Has(name_to_operator_data(operator).ability)

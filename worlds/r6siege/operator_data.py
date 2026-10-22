@@ -60,7 +60,7 @@ ash = Operator(
     ["G36C", "R4-C"], ["5.7 USG", "M45 MEUSOC"], 
     "Breaching Round", 
     ["Breach Charge", "Claymore"], 
-    ["G36C, R4-C"], ["R4-C"], 
+    ["G36C", "R4-C"], ["R4-C"], 
     "Attacker")
 
 azami = Operator(
@@ -78,7 +78,8 @@ bandit = Operator(
     "Deploy Shock Wires", 16, 
     "Re-electify walls", 3, 
     ["MP7", "M870"], ["P12", "Keratos .357"], 
-    "Shock Wire", ["Barbed Wire, Nitro Cell"], 
+    "Shock Wire", 
+    ["Barbed Wire", "Nitro Cell"], 
     ["MP7"], ["MP7"], 
     "Defender")
 
@@ -168,14 +169,14 @@ deimos = Operator(
     ["AK-74M", "M590A1"], [".44 Vendetta"], 
     "Deathmark Tracker", 
     ["Frag Grenade", "Hard Breach Charge"], 
-    ["AK-74M", "M90A1", ".44 Vendetta"], ["AK-74M", ".44 Vendetta"], 
+    ["AK-74M", "M590A1", ".44 Vendetta"], ["AK-74M", ".44 Vendetta"], 
     "Attacker")
 
 denari = Operator(
     "Denari", 
     "Deploy T.R.I.P. Connectors", 30, 
     "Deal damage with T.R.I.P. Connector lasers", 3, 
-    ["Scorpion Evo 3 A1", "FMG-9"], ["Glaive-12", "P226 MK 25"], 
+    ["Scorpion Evo A1", "FMG-9"], ["Glaive-12", "P226 MK 25"], 
     "T.R.I.P. Connector", 
     ["Observation Blocker", "Deployable Shield"], 
     ["Scorpion Evo A1"], ["Scorpion Evo A1"], 
@@ -207,15 +208,15 @@ echo = Operator(
     "Interrupt defuser planting", 2, 
     ["MP5SD", "SuperNova"], ["Bearing 9", "P229"], 
     "Yokai", 
-    ["Impact Grenade", "Deployable Shield"], ["MP5SD", "SuperNova"], 
-    ["MP5SD"], 
+    ["Impact Grenade", "Deployable Shield"], 
+    ["MP5SD", "SuperNova"], ["MP5SD"], 
     "Defender")
 
 ela = Operator(
     "Ela", 
     "Deploy Grzmot mines", 7, 
     "Get Grzmot mine kills/assists", 2, 
-    ["Scorpion Evo 3 A1", "FO-12"], ["RG15"], 
+    ["Scorpion Evo A1", "FO-12"], ["RG15"], 
     "GRZMOT Mine", 
     ["Barbed Wire", "Deployable Shield", "Impact Grenade"], 
     ["Scorpion Evo A1"], ["Scorpion Evo A1"], 
@@ -638,7 +639,7 @@ solis = Operator(
     ["P90", "ITA12L"], ["SMG-11"], 
     "SPEC-IO Electro-Sensor", 
     ["Proximity Alarm", "Impact Grenade"], 
-    ["P90, SMG-11"], ["P90", "SMG-11"], 
+    ["P90", "SMG-11"], ["P90", "SMG-11"], 
     "Defender")
 
 striker = Operator(
@@ -738,7 +739,7 @@ vigil = Operator(
     ["K1A", "BOSG. 12.2"], ["C75 Auto", "SMG-12"], 
     "ERC-7", 
     ["Impact Grenade", "Bulletproof Camera"], 
-    ["K1A", "BOSG. 12.2, SMG-12"], ["BOSG. 12.2", "SMG-12"], 
+    ["K1A", "BOSG. 12.2", "SMG-12"], ["BOSG. 12.2", "SMG-12"], 
     "Defender")
 
 wamai = Operator(

@@ -179,7 +179,7 @@ ITEM_NAME_TO_ID = {
     "RG15": 2090,
     "SASG-12": 2092,
     "SC3000K": 2093,
-    "Scorpion Evo 3 A1": 2095,
+    "Scorpion Evo A1": 2095,
     "SDP 9mm": 2096,
     "SG-CQB": 2097,
     "SIX12": 2098,
@@ -479,7 +479,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "RG15": ItemClassification.progression,
     "SASG-12": ItemClassification.progression,
     "SC3000K": ItemClassification.progression,
-    "Scorpion Evo 3 A1": ItemClassification.progression,
+    "Scorpion Evo A1": ItemClassification.progression,
     "SDP 9mm": ItemClassification.progression,
     "SG-CQB": ItemClassification.progression,
     "SIX12": ItemClassification.progression,
@@ -612,22 +612,93 @@ def create_item_with_correct_classification(world: R6SiegeWorld, name: str) -> R
     return R6SiegeItem(name, DEFAULT_ITEM_CLASSIFICATIONS[name], ITEM_NAME_TO_ID[name], world.player)
 
 def create_weapons(world: R6SiegeWorld, starting_operators: list[str]) -> list[R6SiegeItem]:
-    weapon_names: list[str] = []
-    weapon_items: list[R6SiegeItem] = []
-
-    operators = [generation.name_to_operator_data(operator) for operator in starting_operators]
-
+    operators = [generation.name_to_operator_data(operator) for operator in world.selected_operators]
+    starting_operators = [generation.name_to_operator_data(operator) for operator in starting_operators]
+    
+    weapons: list[str] = []
+    
     for operator in operators:
-        for weapon in operator.primary_weapons + operator.secondary_weapons:
-            if weapon not in weapon_names:
-                weapon_names.append(weapon)
+        operator_weapons: list[str] = []
+        
+        if not world.options.weaponsanity_logic_behavior_include_out_of_logic_weapons.value:
+            match world.options.weaponsanity_logic.value:
+                
+                case world.options.weaponsanity_logic.option_any_weapon:
+                    operator_weapons += operator.primary_weapons + operator.secondary_weapons
+                    
+                case world.options.weaponsanity_logic.option_any_primary:
+                    operator_weapons += operator.primary_weapons + (operator.viable_weapons - operator.primary_weapons)
+                    
+                case world.options.weaponsanity_logic.option_any_viable_weapon:
+                    operator_weapons += operator.viable_weapons
+                    
+                case world.options.weaponsanity_logic.option_most_popular_weapon:
+                    operator_weapons += operator.most_popular_weapons
+                    
+        else:
+            operator_weapons += operator.primary_weapons + operator.secondary_weapons
+            
+        for weapon in operator_weapons:
+            if weapon not in weapons:
+                weapons.append(weapon)
+                
+    for starting_operator in range(world.options.weaponsanity_in_logic_starting_weapons.value):
+        starting_weapon: str = ""
+        operator = starting_operators[starting_operator]
+        
+        match world.options.weaponsanity_logic.value:
+            
+            case world.options.weaponsanity_logic.option_any_weapon:
+                starting_weapon = world.random.choice(operator.primary_weapons + operator.secondary_weapons)
+            
+            case world.options.weaponsanity_logic.option_any_primary:
+                starting_weapon = world.random.choice(operator.primary_weapons + (operator.viable_weapons - operator.primary_weapons))
+            
+            case world.options.weaponsanity_logic.option_any_viable_weapon:
+                starting_weapon = world.random.choice(operator.viable_weapons)
+            
+            case world.options.weaponsanity_logic.option_most_popular_weapon:
+                starting_weapon = world.random.choice(operator.most_popular_weapons)
+        
+        if starting_weapon in weapons:
+            weapons.remove(starting_weapon)
+            world.push_precollected(world.create_item(starting_weapon))
+            
+    for _ in range(world.options.weaponsanity_starting_weapons.value - world.options.weaponsanity_in_logic_starting_weapons.value):
+        starting_weapon = world.random.choice(weapons)
+        weapons.remove(starting_weapon)
+        world.push_precollected(world.create_item(starting_weapon))
+            
+    return [world.create_item(weapon) for weapon in weapons if print(f"Weapon: {weapon}") is None]
 
-        for weapon in weapon_names:
-            weapon_items.append(world.create_item(weapon))
+def create_abilities(world:R6SiegeWorld, starting_operators: list[str]) -> list[R6SiegeItem]:
+    operators = [generation.name_to_operator_data(operator) for operator in world.selected_operators]
+    starting_operators = [generation.name_to_operator_data(operator) for operator in starting_operators]
+    
+    abilities: list[str] = []
+    
+    for operator in operators:
+        if operator.name != "Striker" and operator.name != "Sentry":
+            abilities.append(operator.ability)
+        else:
+            if world.options.abilitysanity_gadget_kit.value or not world.options.gadgetsanity.value:
+                if operator.ability not in abilities:
+                    abilities.append(operator.ability)
+                    
+    for starting_operator in range(world.options.abilitysanity_in_logic_starting_abilities.value):
+        operator = starting_operators[starting_operator]
+        if operator.ability in abilities:
+            abilities.remove(operator.ability)
+            world.push_precollected(world.create_item(operator.ability))
+            
+    for _ in range(world.options.abilitysanity_starting_abilities.value - world.options.abilitysanity_in_logic_starting_abilities.value):
+        starting_ability = world.random.choice(abilities)
+        abilities.remove(starting_ability)
+        world.push_precollected(world.create_item(starting_ability))
+            
+    return [world.create_item(ability) for ability in abilities if print(f"Ability: {ability}") is None]
 
-    return weapon_items
-
-def create_gadgets(world: R6SiegeWorld, starting_operators: list[str]) -> None:
+def create_gadgets(world: R6SiegeWorld, starting_operators: list[str]) -> list[R6SiegeItem]:
     operators = [generation.name_to_operator_data(operator) for operator in world.selected_operators]
     starting_operators = [generation.name_to_operator_data(operator) for operator in starting_operators]
 
@@ -636,23 +707,23 @@ def create_gadgets(world: R6SiegeWorld, starting_operators: list[str]) -> None:
     for operator in operators:
         for gadget in operator.gadgets:
             if gadget not in gadgets:
-                gadgets.append(gadgets)
+                gadgets.append(gadget)
 
     for starting_operator in range(world.options.abilitysanity_in_logic_starting_abilities):
-        if starting_operators[starting_operator] == "Striker":
+        if starting_operators[starting_operator].name == "Striker":
 
             if world.options.easy_challenges.value and operator_data.striker_easy_challenge_gadgets:
                 gadget = world.random.choice(operator_data.striker_easy_challenge_gadgets)
-                gadgets.remove(world.create_item(gadget))
-                world.push_precollected(gadget)
+                gadgets.remove(gadget)
+                world.push_precollected(world.create_item(gadget))
 
             if world.options.hard_challenges.value and operator_data.striker_hard_challenge_gadgets:
                 gadget = world.random.choice(operator_data.striker_hard_challenge_gadgets)
                 if gadget in gadgets:
-                    gadgets.remove(world.create_item(gadget))
-                    world.push_precollected(gadget)
+                    gadgets.remove(gadget)
+                    world.push_precollected(world.create_item(gadget))
 
-        if starting_operators[starting_operator] == "Sentry":
+        if starting_operators[starting_operator].name == "Sentry":
 
             if world.options.easy_challenges.value:
                 gadget = world.random.choice(operator_data.sentry_easy_challenge_gadgets)
@@ -664,28 +735,20 @@ def create_gadgets(world: R6SiegeWorld, starting_operators: list[str]) -> None:
                 if gadget in gadgets:
                     gadgets.remove(gadget)
                     world.push_precollected(world.create_item(gadget))
+                    
+    for starting_gadget in range(world.options.gadgetsanity_starting_gadgets):
+        if starting_gadget == len(gadgets):
+            break
+        gadget = world.random.choice(gadgets)
+        gadgets.remove(gadget)
+        world.push_precollected(world.create_item(gadget))
 
-    for gadget in gadgets:
-        world.create_item(gadget)
-
-            
-def give_in_logic_weaponsanity_item(world: R6SiegeWorld, name: str) -> str:
-    name = generation.name_to_operator_data(name)
-    match world.options.weaponsanity_logic.value:
-        case world.options.weaponsanity_logic.option_any_weapon:
-            return world.random.choice(name.primary_weapons + name.secondary_weapons)
-        
-        case world.options.weaponsanity_logic.option_any_primary:
-            return world.random.choice(name.primary_weapons)
-        
-        case world.options.weaponsanity_logic.option_any_viable_weapon:
-            return world.random.choice(name.viable_weapons)
-        
-        case world.options.weaponsanity_logic.option_most_popular_weapon:
-            return world.random.choice(name.most_popular_weapons)
+    return [world.create_item(gadget) for gadget in gadgets if print(f"Gadget: {gadget}") is None]
 
 def create_starting_operators(world: R6SiegeWorld) -> list[str]:
     starting_operators = []
+    available_starting_operators = sorted(set(world.selected_operators) - world.options.forced_starting_operators.value)
+    starting_operators_count = world.options.starting_operators.value - len(world.options.forced_starting_operators.value)
 
     if len(world.selected_operators) <= world.options.starting_operators.value:
         return world.selected_operators
@@ -694,42 +757,48 @@ def create_starting_operators(world: R6SiegeWorld) -> list[str]:
     match world.options.starting_operator_balancing.value:
 
         case world.options.starting_operator_balancing.option_disabled:
-            return world.random.sample(world.selected_operators, k = world.options.starting_operators.value)
+            return world.random.sample(available_starting_operators, k = starting_operators_count)
 
         case world.options.starting_operator_balancing.option_light:
-            if len(world.selected_operators) > 1 and world.options.starting_operators.value > 1:
-                starting_operators.append(world.random.choice(world.selected_operators))
-                starting_operators.append(world.random.choice([n for n in world.selected_operators if generation.name_to_operator_data(n).side != generation.name_to_operator_data(starting_operators[0]).side]))
-                return starting_operators + world.random.sample(world.selected_operators, k = world.options.starting_operators.value - 2)
+            if len(available_starting_operators) > 1 and starting_operators_count > 1:
+                starting_operators.append(world.random.choice(available_starting_operators))
+                starting_operators.append(world.random.choice([n for n in available_starting_operators 
+                                                               if generation.name_to_operator_data(n).side != 
+                                                               generation.name_to_operator_data(starting_operators[0]).side]))
+                return starting_operators + world.random.sample(available_starting_operators, k = starting_operators_count - 2)
+            else:
+                return world.options.forced_starting_operators.value
 
         case world.options.starting_operator_balancing.option_heavy:
             less = "Neither"
-            if len(world.selected_operators) > 1 and world.options.starting_operators.value > 1:
-                attackers = [n for n in world.selected_operators if generation.name_to_operator_data(n).side == "Attacker"]
-                defenders = [n for n in world.selected_operators if generation.name_to_operator_data(n).side == "Defender"]
+            if len(available_starting_operators) > 1 and starting_operators_count > 1:
+                attackers = [n for n in available_starting_operators if generation.name_to_operator_data(n).side == "Attacker"]
+                defenders = [n for n in available_starting_operators if generation.name_to_operator_data(n).side == "Defender"]
 
-                if len(attackers) >= floor(world.options.starting_operators.value / 2):
-                    starting_operators += world.random.sample(attackers, k = floor(world.options.starting_operators.value / 2))
+                if len(attackers) >= floor(starting_operators_count / 2):
+                    starting_operators += world.random.sample(attackers, k = floor(starting_operators_count / 2))
                 else:
                     starting_operators += attackers
                     less = "Attackers"
 
-                if len(defenders) >= floor(world.options.starting_operators.value / 2):
-                    starting_operators.append(world.random.sample(defenders, k = floor(world.options.starting_operators.value / 2)))
+                if len(defenders) >= floor(starting_operators_count / 2):
+                    starting_operators.append(world.random.sample(defenders, k = floor(starting_operators_count / 2)))
                 else: 
                     starting_operators += defenders
                     less = "Defenders"
 
                 if less == "Attackers":
                     starting_operators += world.random.sample([n for n in defenders if n not in starting_operators],
-                                                               k = world.options.starting_operators.value - len(starting_operators))
+                                                               k = starting_operators_count - len(starting_operators))
                 elif less == "Defenders":
                     starting_operators += world.random.sample([n for n in defenders if n not in starting_operators],
-                                                               k = world.options.starting_operators.value - len(starting_operators))
-                elif world.options.starting_operators.value % 2 == 1:
+                                                               k = starting_operators_count - len(starting_operators))
+                elif starting_operators_count % 2 == 1:
                     starting_operators.append(world.random.choice([n for n in world.selected_operators if n not in starting_operators]))
 
                 return starting_operators
+            else:
+                return world.options.forced_starting_operators.value
 
 def create_all_items(world: R6SiegeWorld) -> None:
     print(world.selected_operators)
@@ -737,81 +806,21 @@ def create_all_items(world: R6SiegeWorld) -> None:
     starting_operators = create_starting_operators(world)
     print(starting_operators)
     
-    if world.options.weaponsanity.value:
-        weapons = create_weapons(world, starting_operators)
-        
-    if world.options.gadgetsanity.value:
-        create_gadgets(world, starting_operators)
-        
-    given_weapons = 0
-    given_abilities = 0
-    gadget_kit_given = False
-
     for operator in world.selected_operators:
-
-
         if operator in starting_operators:
             world.push_precollected(world.create_item(operator))
-
-            if world.options.weaponsanity.value and given_weapons < world.options.weaponsanity_in_logic_starting_weapons.value:
-                selected_weapon = give_in_logic_weaponsanity_item(world, operator)
-                world.push_precollected(world.create_item(selected_weapon))
-
-                for remaining_weapon_index, remaining_weapon in enumerate(weapons):
-                    if selected_weapon == remaining_weapon.name:
-                        del weapons[remaining_weapon_index]
-
-                given_weapons += 1
-
-            if world.options.abilitysanity.value and given_abilities < world.options.abilitysanity_in_logic_starting_abilities.value:
-                if operator != "Striker" and operator != "Sentry" or world.options.abilitysanity_gadget_kit.value or not world.options.gadgetsanity.value:
-                    world.push_precollected(world.create_item(generation.name_to_operator_data(operator).ability))
-
-                elif world.options.abilitysanity_gadget_kit.value or not world.options.gadgetsanity.value:
-                    if not gadget_kit_given:
-                        world.push_precollected(world.create_item(generation.name_to_operator_data(operator).ability))
-                        gadget_kit_given = True
-
-                else: 
-                    available_gadgets = []
-
-                    if operator == "Striker":
-                        available_gadgets.append("Breach Charge", "Claymore", "Hard Breach Charge")
-
-                    elif operator == "Sentry":
-                        if world.options.easy_challenges:
-                            available_gadgets.append("Barbed Wire", "Bulletproof Camera", "Deployable Shield", "Observation Blocker", "Proximity Alarm")
-                        if world.options.hard_challenges:
-                            available_gadgets.append("Nitro Cell", "Impact Grenade", "Bulletproof Camera")
-
-                    random_gadget = world.random.choice(list(set(available_gadgets))) #Check if bulletproof camera appeared twice
-                    world.push_precollected(world.create_item(random_gadget))
-
-                    for remaining_gadget in len(range(gadgets)):
-                        if random_gadget == gadgets[remaining_gadget].name:
-                            del gadgets[remaining_gadget]
-
-                given_abilities += 1
-            
-
         else:
             itempool.append(world.create_item(operator))
-
-            if world.options.weaponsanity.value:
-                for weapon in generation.name_to_operator_data(operator).primary_weapons + generation.name_to_operator_data(operator).secondary_weapons:
-                    itempool.append(world.create_item(weapon))
-
-            if world.options.abilitysanity.value:
-
-                if operator != "Striker" and operator != "Sentry":
-                    itempool.append(world.create_item(generation.name_to_operator_data(operator).ability))
-
-                elif world.options.abilitysanity_gadget_kit.value or not world.options.gadgetsanity.value:
-                    if "Gadget Kit" not in world.item_names:
-                        itempool.append(world.create_item("Gadget Kit"))
-
+    
+    if world.options.weaponsanity.value:
+        itempool += create_weapons(world, starting_operators)
+        
+    if world.options.abilitysanity.value:
+        itempool += create_abilities(world, starting_operators)
+        
     if world.options.gadgetsanity.value:
-        itempool += gadgets
+        itempool += create_gadgets(world, starting_operators)
+        
     number_of_items = len(itempool)
     number_of_unfilled_locations = len(world.multiworld.get_unfilled_locations(world.player))
     needed_number_of_filler_items = number_of_unfilled_locations - number_of_items
