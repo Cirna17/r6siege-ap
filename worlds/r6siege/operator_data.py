@@ -791,6 +791,12 @@ zofia = Operator(
     ["M762"], ["M762"], 
     "Attacker")
 
+striker_easy_challenge_gadgets = ["Breach Charge", "Claymore", "Hard Breach Charge"]
+striker_hard_challenge_gadgets = []
+
+sentry_easy_challenge_gadgets = ["Barbed Wire", "Bulletproof Camera", "Deployable Shield", "Observation Blocker", "Proximity Alarm"]
+sentry_hard_challenge_gadgets = ["Nitro Cell", "Impact Grenade", "Bulletproof Camera"]
+
 operators = [ace, alibi, amaru, aruni, ash, azami, bandit, blackbeard, blitz, brava, buck, capitao, castle, caveira, clash,
              deimos, denari, doc, dokkaebi, echo, ela, fenrir, finka, flores, frost, fuze, glaz, goyo, gridlock, grim,
              hibana, iana, iq, jackal, jager, kaid, kali, kapkan, lesion, lion, maestro, maverick, melusi, mira, montagne,

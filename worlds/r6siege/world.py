@@ -47,4 +47,4 @@ class R6SiegeWorld(World):
             "global_kill_counter_kill_threshold_behavior", "easy_challenges", "easy_challenge_multiplier", "hard_challenges",
             "hard_challenge_multiplier", "challenge_assists", "weaponsanity", "weaponsanity_logic", "weaponsanity_logic_behavior",
             "weaponsanity_all_weapons_kill_threshold", "abilitysanity", "abilitysanity_gadget_kit", "gadgetsanity"
-        )
+        ).update({"selected_operators": self.selected_operators})

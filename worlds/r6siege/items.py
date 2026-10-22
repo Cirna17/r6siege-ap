@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 from BaseClasses import Item, ItemClassification
 from math import floor
 
-from . import generation, operator_data #I know the IDE marks operator_data as unused but you have to keep it in or else it crashes
+from . import generation, operator_data
 
 if TYPE_CHECKING:
     from .world import R6SiegeWorld
@@ -608,7 +608,7 @@ class R6SiegeItem(Item):
 def get_random_filler_item_name(world: R6SiegeWorld) -> str:
     return "Siege Filler Item"
 
-def create_item_with_correct_classification(world: R6SiegeWorld, name: str) -> R6SiegeWorld:
+def create_item_with_correct_classification(world: R6SiegeWorld, name: str) -> R6SiegeItem:
     return R6SiegeItem(name, DEFAULT_ITEM_CLASSIFICATIONS[name], ITEM_NAME_TO_ID[name], world.player)
 
 def create_weapons(world: R6SiegeWorld, starting_operators: list[str]) -> list[R6SiegeItem]:
@@ -627,21 +627,47 @@ def create_weapons(world: R6SiegeWorld, starting_operators: list[str]) -> list[R
 
     return weapon_items
 
-def create_gadgets(world: R6SiegeWorld, starting_operator: list[str]) -> list[R6SiegeItem]:
-    gadget_names: list[str] = []
-    gadget_items: list[R6SiegeItem] = []
+def create_gadgets(world: R6SiegeWorld, starting_operators: list[str]) -> None:
+    operators = [generation.name_to_operator_data(operator) for operator in world.selected_operators]
+    starting_operators = [generation.name_to_operator_data(operator) for operator in starting_operators]
 
-    operators = [generation.name_to_operator_data(operator) for operator in starting_operator]
+    gadgets: list[str] = []
 
     for operator in operators:
         for gadget in operator.gadgets:
-            if gadget not in gadget_names:
-                gadget_names.append(gadget)
+            if gadget not in gadgets:
+                gadgets.append(gadgets)
 
-    for gadget in gadget_names:
-        gadget_items = world.create_item(gadget)
+    for starting_operator in range(world.options.abilitysanity_in_logic_starting_abilities):
+        if starting_operators[starting_operator] == "Striker":
 
-    return gadget_items
+            if world.options.easy_challenges.value and operator_data.striker_easy_challenge_gadgets:
+                gadget = world.random.choice(operator_data.striker_easy_challenge_gadgets)
+                gadgets.remove(world.create_item(gadget))
+                world.push_precollected(gadget)
+
+            if world.options.hard_challenges.value and operator_data.striker_hard_challenge_gadgets:
+                gadget = world.random.choice(operator_data.striker_hard_challenge_gadgets)
+                if gadget in gadgets:
+                    gadgets.remove(world.create_item(gadget))
+                    world.push_precollected(gadget)
+
+        if starting_operators[starting_operator] == "Sentry":
+
+            if world.options.easy_challenges.value:
+                gadget = world.random.choice(operator_data.sentry_easy_challenge_gadgets)
+                gadgets.remove(gadget)
+                world.push_precollected(world.create_item(gadget))
+
+            if world.options.hard_challenges.value:
+                gadget = world.random.choice(operator_data.sentry_hard_challenge_gadgets)
+                if gadget in gadgets:
+                    gadgets.remove(gadget)
+                    world.push_precollected(world.create_item(gadget))
+
+    for gadget in gadgets:
+        world.create_item(gadget)
+
             
 def give_in_logic_weaponsanity_item(world: R6SiegeWorld, name: str) -> str:
     name = generation.name_to_operator_data(name)
@@ -715,7 +741,7 @@ def create_all_items(world: R6SiegeWorld) -> None:
         weapons = create_weapons(world, starting_operators)
         
     if world.options.gadgetsanity.value:
-        gadgets = create_gadgets(world, starting_operators)
+        create_gadgets(world, starting_operators)
         
     given_weapons = 0
     given_abilities = 0
@@ -783,8 +809,9 @@ def create_all_items(world: R6SiegeWorld) -> None:
                 elif world.options.abilitysanity_gadget_kit.value or not world.options.gadgetsanity.value:
                     if "Gadget Kit" not in world.item_names:
                         itempool.append(world.create_item("Gadget Kit"))
-                
-    itempool.extend(gadgets)
+
+    if world.options.gadgetsanity.value:
+        itempool += gadgets
     number_of_items = len(itempool)
     number_of_unfilled_locations = len(world.multiworld.get_unfilled_locations(world.player))
     needed_number_of_filler_items = number_of_unfilled_locations - number_of_items
