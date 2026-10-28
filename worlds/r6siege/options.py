@@ -1,5 +1,15 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
 from dataclasses import dataclass
-from Options import Toggle, DefaultOnToggle, Range, Choice, OptionSet, OptionGroup, PerGameCommonOptions
+from Options import Toggle, DefaultOnToggle, Range, Choice, OptionSet, OptionGroup, PerGameCommonOptions, OptionError
+import logging
+
+if TYPE_CHECKING:
+    from .world import R6SiegeWorld as R6SiegeWorld
+
+OPERATORS = 78
+WEAPONS = 116
+GADGETS = 13
 
 class GoalOperators(Range):
     """
@@ -9,7 +19,7 @@ class GoalOperators(Range):
     display_name = "Goal Operators"
 
     range_start = 1
-    range_end = 78
+    range_end = OPERATORS
     default = 10
 
 class StartingOperators(Range):
@@ -20,7 +30,7 @@ class StartingOperators(Range):
     display_name = "Starting Operators"
 
     range_start = 1
-    range_end = 78
+    range_end = OPERATORS
     default = 2
 
 class StartingOperatorBalancing(Choice):
@@ -49,12 +59,12 @@ class ExtraOperators(Range):
     display_name = "Extra Operators"
 
     range_start = 0
-    range_end = 77
+    range_end = OPERATORS - 1
     default = 2
 
 class AllowedOperators(OptionSet):
     """
-    The operators that can be added into the pool.
+    The operators that can be randomly added into the pool.
     Remove any you haven't bought or don't want to play as.
     """
 
@@ -103,7 +113,7 @@ class ForcedSelectedOperators(OptionSet):
 class ForcedStartingOperators(OptionSet):
     """
     These operators will be part of your starting operators.
-    For each operator here, 1 less operator will be randomly chosen.
+    For each operator here, 1 less operator will be randomly chosen as a starter.
     """
     
     display_name = "Forced Starting Operators"
@@ -206,14 +216,14 @@ class GlobalKillCounterValue(Range):
 class GlobalKillCounterLogic(Range):
     """
     If the reward for filling the global kill counter is checks,
-    this is how many operators you're expected to unlock before those checks are in logic.
+    this is how many operators you're expected to complete before those checks are in logic.
     It's recommended to set this to half of your goal operators.
     """
 
     display_name = "Global Kill Counter Logic"
 
     range_start = 0
-    range_end = 77
+    range_end = OPERATORS - 1
     default = 5
 
 class GlobalKillCounterKillThresholdBehavior(Choice):
@@ -365,7 +375,7 @@ class WeaponsanityStartingWeapons(Range):
     display_name = "Weaponsanity Starting Weapons"
 
     range_start = 1
-    range_end = 116
+    range_end = WEAPONS
     default = 1
 
 class WeaponsanityInLogicStartingWeapons(Range):
@@ -377,12 +387,12 @@ class WeaponsanityInLogicStartingWeapons(Range):
     display_name = "Weaponsanity In-logic Starting Weapons"
 
     range_start = 1
-    range_end = 116
+    range_end = WEAPONS
     default = 1
 
 class WeaponsanityAllWeaponsKillThreshold(Choice):
     """
-    You'll have a separate kill threshold for all of your allowed weapons under Weaponsanity Logic.
+    You'll have a separate kill threshold for all of your in logic weapons.
     Full threshold: you'll have your full kill threshold for every allowed weapon.
     Divided threshold: your kill threshold will be divided as evenly as possible among the allowed weapons.
     Disabled: you'll have one kill threshold for the operator, not the weapons.
@@ -438,7 +448,7 @@ class AbilitysanityStartingAbilities(Range):
     display_name = "Abilitysanity Starting Abilities"
 
     range_start = 0
-    range_end = 78
+    range_end = OPERATORS
     default = 1
 
 class AbilitysanityInLogicStartingAbilities(Range):
@@ -450,7 +460,7 @@ class AbilitysanityInLogicStartingAbilities(Range):
     display_name = "Abilitysanity In-logic Starting Abilities"
 
     range_start = 0
-    range_end = 78
+    range_end = OPERATORS
     default = 1
 
 class Gadgetsanity(Toggle):
@@ -472,7 +482,7 @@ class GadgetsanityStartingGadgets(Range):
     display_name = "Gadgetsanity Starting Gadgets"
     
     range_start = 0
-    range_end = 13
+    range_end = GADGETS
     default = 0
     
 
@@ -547,3 +557,97 @@ option_groups = [
         [Gadgetsanity, GadgetsanityStartingGadgets]
     )
 ]
+
+logger = logging.getLogger("R6Logger")
+
+def validate_options(world: R6SiegeWorld) -> None:
+    #Goal operators + extra operators > OPERATORS -> extra operators = OPERATORS - goal operators
+    if world.options.goal_operators.value + world.options.extra_operators.value > OPERATORS:
+        world.options.extra_operators.value = OPERATORS - world.options.goal_operators.value
+        logger.warning(f"{world.player_name}'s goal operators + extra operators was greater than the operators in the game, so their extra operators were lowered to adjust.")
+
+    #Starting operators > goal operators -> starting operators = goal operators
+    if world.options.goal_operators.value + world.options.extra_operators.value < world.options.starting_operators.value:
+        world.options.starting_operators.value = world.options.goal_operators.value
+        logger.warning(f"{world.player_name}'s starting operators were higher than their goal operators, so they'll start with all of their goal operators.")
+
+    #Goal operators > allowed operators -> goal operators = allowed operators
+    #Goal operators + extra operators > allowed operators -> extra operators = allowed operators - goal operators
+    if len(world.options.allowed_operators.value) < world.options.goal_operators.value + world.options.extra_operators.value:
+        if len(world.options.allowed_operators.value) < world.options.goal_operators.value:
+            world.options.goal_operators.value = len(world.options.allowed_operators.value)
+            world.options.extra_operators.value = 0
+            logger.warning(f"{world.player_name} had more goal operators than allowed operators, so their goal operators were reduced to their allowed operators. Extra operators were eliminated.")
+        else:
+            world.options.extra_operators.value = len(world.options.allowed_operators.value) - world.options.goal_operators.value
+            logger.warning(f"{world.player_name}'s goal operators + extra operators were more than their allowed operators, so their extra operators were reduced to adjust.")
+
+    #Remove forced selected operators in allowed operators
+    for operator in world.options.forced_selected_operators.value:
+        world.options.allowed_operators.value.discard(operator)
+
+    #Remove forced starting operators in allowed operators
+    for operator in world.options.forced_starting_operators.value:
+        world.options.allowed_operators.value.discard(operator)
+
+    #Error if kill threshold, easy challenges, and hard challenges are off
+    if not world.options.kill_threshold.value and not world.options.easy_challenges.value and not world.options.hard_challenges.value:
+        raise OptionError(f"{world.player_name}'s world has no locations. Please enable kill thresholds, easy challenges, or hard challenges.")
+
+    #If the global kill counter is in logic after the goal operators are completed, set it to one before the goal operators are completed.
+    if world.options.global_kill_counter_reward.value == world.options.global_kill_counter_reward.option_checks and world.options.global_kill_counter_logic.value > world.options.goal_operators.value:
+        world.options.global_kill_counter_logic.value = world.options.goal_operators.value - 1
+        logger.warning(f"{world.player_name}'s global kill counter was put in logic after their goal operators were completed, so it'll now be in logic after one less of their goal operators are completed.")
+
+    #In logic starting weapons > starting operators -> in logic starting weapons = starting operators
+    if world.options.weaponsanity_in_logic_starting_weapons.value > world.options.starting_operators.value:
+        world.options.weaponsanity_in_logic_starting_weapons.value = world.options.starting_operators.value
+        logger.info(f"{world.player_name}'s in logic starting weapons were higher than their starting operators, so the in logic starting weapons were decreased to adjust.")
+
+    #Starting weapons < in logic starting weapons -> starting weapons = in logic starting weapons
+    if world.options.weaponsanity_starting_weapons.value < world.options.weaponsanity_in_logic_starting_weapons.value:
+        world.options.weaponsanity_starting_weapons.value = world.options.weaponsanity_in_logic_starting_weapons.value
+        logger.info(f"{world.player_name} has less starting weapons than in-logic starting weapons, so their starting weapons are their in-logic starting weapons.")
+
+    #In logic starting abilities > starting operators -> in logic abilities = starting operators
+    if world.options.abilitysanity_in_logic_starting_abilities.value > world.options.starting_operators.value:
+        world.options.abilitysanity_in_logic_starting_abilities.value = world.options.starting_operators.value
+        logger.info(f"{world.player_name}'s in logic starting abilities were higher than their starting operators, so the in logic starting weapons were decreased to adjust.")
+
+    #Starting abilities < in logic starting abilities -> starting weapons = in logic starting weapons
+    if world.options.abilitysanity_starting_abilities.value < world.options.abilitysanity_in_logic_starting_abilities.value:
+        world.options.abilitysanity_starting_abilities.value = world.options.abilitysanity_in_logic_starting_abilities.value
+        logger.info(f"{world.player_name} has less starting abilities than in-logic starting abilities, so their starting abilities are their in-logic starting abilities.")
+
+    #Prevent the player from locking themselves out at the start
+    if world.options.weaponsanity.value and world.options.abilitysanity.value:
+
+        #Error if no in-logic starting weapons or abilities
+        if world.options.weaponsanity_in_logic_starting_weapons.value == 0 and world.options.abilitysanity_in_logic_starting_abilities.value == 0:
+            raise OptionError(f"{world.player_name} has no available checks at the start. Please increase in-logic starting weapons or in-logic starting abilities.")
+
+        #1 in-logic starting weapon if no in-logic starting weapons and weapons lock challenges
+        elif world.options.weaponsanity_in_logic_starting_weapons.value == 0 and world.options.weaponsanity_logic_behavior.value == world.options.weaponsanity_logic_behavior.option_out_of_logic_all or world.options.weaponsanity_logic_behavior.value == world.options.weaponsanity_logic_behavior.option_lock_all:
+            world.options.weaponsanity_in_logic_starting_weapons.value = 1
+            logger.warning(f"{world.player_name}'s in-logic starting weapons were increased to 1 to prevent having no checks available at the start.")
+
+        #1 in-logic starting ability if no in-logic starting abilities and abilities lock kills
+        elif world.options.abilitysanity_in_logic_starting_abilities.value == 0 and world.options.abilitysanity_locks_kill_threshold.value:
+            world.options.abilitysanity_in_logic_starting_abilities.value = 1
+            logger.warning(f"{world.player_name}'s in-logic starting abilities were increased to 1 to prevent having no checks available at the start.")
+
+    elif world.options.weaponsanity.value:
+        #1 in-logic starting weapon if no in-logic starting weapons and weapons lock challenges
+        if world.options.weaponsanity_in_logic_starting_weapons.value == 0 and world.options.weaponsanity_logic_behavior.value == world.options.weaponsanity_logic_behavior.option_out_of_logic_all or world.options.weaponsanity_logic_behavior.value == world.options.weaponsanity_logic_behavior.option_lock_all:
+            world.options.weaponsanity_in_logic_starting_weapons.value = 1
+            logger.warning(f"{world.player_name}'s in-logic starting weapons were increased to 1 to prevent having no checks available at the start.")
+
+    elif world.options.abilitysanity.value:
+        #1 in-logic starting ability if no in-logic starting abilities and abilities lock kills
+        if world.options.abilitysanity_in_logic_starting_abilities.value == 0 and world.options.abilitysanity_locks_kill_threshold.value:
+            world.options.abilitysanity_in_logic_starting_abilities.value = 1
+            logger.warning(f"{world.player_name}'s in-logic starting abilities were increased to 1 to prevent having no checks available at the start.")
+
+    if not world.options.abilitysanity_gadget_kit.value and not world.options.gadgetsanity.value:
+        world.options.abilitysanity_gadget_kit.value = world.options.abilitysanity_gadget_kit.option_true
+        logger.warning(f"{world.player_name}'s gadget kit was turned off without gadgetsanity being turned on, so it was turned back on.")

@@ -1,6 +1,7 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 from BaseClasses import Item, ItemClassification
+from Options import OptionError
 from math import floor
 
 from . import generation, operator_data
@@ -681,7 +682,7 @@ def create_abilities(world:R6SiegeWorld, starting_operators: list[str]) -> list[
         if operator.name != "Striker" and operator.name != "Sentry":
             abilities.append(operator.ability)
         else:
-            if world.options.abilitysanity_gadget_kit.value or not world.options.gadgetsanity.value:
+            if world.options.abilitysanity_gadget_kit.value:
                 if operator.ability not in abilities:
                     abilities.append(operator.ability)
                     
@@ -750,7 +751,7 @@ def create_starting_operators(world: R6SiegeWorld) -> list[str]:
     available_starting_operators = sorted(set(world.selected_operators) - world.options.forced_starting_operators.value)
     starting_operators_count = world.options.starting_operators.value - len(world.options.forced_starting_operators.value)
 
-    if len(world.selected_operators) <= world.options.starting_operators.value:
+    if len(world.selected_operators) == world.options.starting_operators.value:
         return world.selected_operators
 
 
@@ -800,6 +801,22 @@ def create_starting_operators(world: R6SiegeWorld) -> list[str]:
             else:
                 return world.options.forced_starting_operators.value
 
+def validate_fill(world: R6SiegeWorld, items: int, locations: int) -> None:
+    if items > locations:
+        remaining_items = items - locations
+        available_location_increasing_options = []
+
+        if world.options.kill_threshold.value:
+            available_location_increasing_options.append("kill_threshold_value")
+
+        if world.options.easy_challenges.value:
+            available_location_increasing_options.append("easy_challenge_value")
+
+        if world.options.hard_challenges.value:
+            available_location_increasing_options.append("hard_challenge_value")
+
+        raise OptionError(f"{world.player_name} needs {round(remaining_items / (world.options.goal_operators.value - world.options.extra_operators.value), 0)} (estimate) more checks per operator to ensure a successful generation. Please increase one of the following options: {available_location_increasing_options}")
+
 def create_all_items(world: R6SiegeWorld) -> None:
     print(world.selected_operators)
     itempool: list[R6SiegeItem] = []
@@ -823,6 +840,7 @@ def create_all_items(world: R6SiegeWorld) -> None:
         
     number_of_items = len(itempool)
     number_of_unfilled_locations = len(world.multiworld.get_unfilled_locations(world.player))
+    validate_fill(world, number_of_items, number_of_unfilled_locations)
     needed_number_of_filler_items = number_of_unfilled_locations - number_of_items
     itempool += [world.create_filler() for _ in range(needed_number_of_filler_items)]
     world.multiworld.itempool += itempool

@@ -20,7 +20,10 @@ def get_locations(operator: str, location_type: str, number_of_locations: int) -
     locations: list[str] = []
     
     for location in range(1, number_of_locations + 1):
-        locations.append(f"{operator}: {location_type} Reward #{location}")
+        if location_type:
+            locations.append(f"{operator}: {location_type} Reward #{location}")
+        else:
+            locations.append(f"{operator}: Reward #{location}")
         
     return get_location_names_with_ids(locations)
         
@@ -109,20 +112,6 @@ def create_operator_completion_rule(world: R6SiegeWorld, operator: str) -> Rule 
 def create_locations_regions_and_rules(world: R6SiegeWorld):
     regions: list[Region] = []
     regions.append(Region("Menu", world.player, world.multiworld))
-
-
-    if (world.options.global_kill_counter.value and 
-        world.options.global_kill_counter_reward.value == world.options.global_kill_counter_reward.option_checks):
-        
-        regions.append(Region("Global Kill Counter", world.player, world.multiworld))
-        regions[-0].connect(regions[-1], "Global Kill Counter In Logic")
-        
-        if world.options.global_kill_counter_reward.value == world.options.global_kill_counter_reward.option_required_to_goal:
-            regions[-1].add_event("Global Kill Counter Complete", location_type = locations.R6SiegeLocation, item_type = items.R6SiegeItem)
-            
-        regions[-1].add_locations(get_locations(0, 0, world.options.global_kill_counter_value.value), 
-                                  HasFromList(*[i.name for i in operator_data.operators], count = world.options.global_kill_counter_logic.value))
-        
         
     for operator in world.selected_operators:
         added_regions = 0
@@ -160,6 +149,13 @@ def create_locations_regions_and_rules(world: R6SiegeWorld):
         
         regions[-1 - added_regions].add_event(operator + " Complete", rule = create_operator_completion_rule(world, operator), location_type = locations.R6SiegeLocation, item_type = items.R6SiegeItem)
 
+
+    if world.options.global_kill_counter.value and world.options.global_kill_counter_reward.value == world.options.global_kill_counter_reward.option_checks:
+        #If the global kill counter reward is a completion condition, there's no reason for the apworld to care about that.
+        regions.append(Region("Global Kill Counter", world.player, world.multiworld))
+        regions[0].connect(regions[-1], "Global Kill Counter In Logic", HasFromList(
+            *[n.name for n in world.get_locations() if n.name[-8:] == "Complete"], count = world.options.global_kill_counter_logic.value))
+        regions[-1].add_locations(get_locations("Global Kill Counter", "", world.options.global_kill_counter_value.value))
 
     world.set_completion_rule(HasFromList(*[n.name for n in world.get_locations() if n.name[-8:] == "Complete"], count = world.options.goal_operators.value))
     world.multiworld.regions += regions

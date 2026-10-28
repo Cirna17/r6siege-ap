@@ -26,8 +26,7 @@ class R6SiegeWorld(World):
     selected_operators = []
 
     def generate_early(self) -> None:
-        for operator in self.options.forced_selected_operators.value:
-            self.options.allowed_operators.value.discard(operator)
+        r6siege_options.validate_options(self)
                 
         self.selected_operators = self.random.sample(sorted(self.options.allowed_operators.value),
                                                  k = self.options.goal_operators.value + self.options.extra_operators.value 
