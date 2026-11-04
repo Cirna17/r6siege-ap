@@ -1,15 +1,25 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 from dataclasses import dataclass
-from Options import Toggle, DefaultOnToggle, Range, Choice, OptionSet, OptionGroup, PerGameCommonOptions, OptionError
+from Options import Toggle, DefaultOnToggle, Range, Choice, OptionSet, OptionDict, OptionGroup, PerGameCommonOptions, OptionError
+from schema import Schema, Optional
 import logging
 
 if TYPE_CHECKING:
     from .world import R6SiegeWorld as R6SiegeWorld
+    
 
 OPERATORS = 78
 WEAPONS = 116
 GADGETS = 13
+
+challenges_schema = Schema({
+    str: [str, int, Optional(list[str])]
+})
+
+weapons_schema = Schema({
+    str: list[str],
+})
 
 class GoalOperators(Range):
     """
@@ -249,6 +259,98 @@ class EasyChallenges(DefaultOnToggle):
     """
 
     display_name = "Easy Challenges"
+    
+class EasyChallengesChallenges(OptionDict):
+    """
+    The easy challenge every operator has.
+    The text is the challenge, and the number is how many times you'll do that objective before it's completed.
+    Blank text and a 0 means that the challenge is disabled.
+    The entries under Striker and Sentry are the gadgets you'll need to complete their challenge.
+    Feel free to scroll past if you want to stick with the default challenges.
+    """
+    
+    display_name = "Easy Challenges: Challenges"
+    
+    schema = challenges_schema
+    
+    default = {"Ace": ["Deploy S.E.L.M.A. Aqua Breachers", 10], 
+               "Alibi": ["Deploy Prisma Clones", 15], 
+               "Amaru": ["Use the Garra Hook", 3], 
+               "Aruni": ["Deploy Surya Laser Gates", 10], 
+               "Ash": ["Use Breaching Rounds", 10], 
+               "Azami": ["Deploy Kiba Barriers", 10], 
+               "Bandit": ["Deploy Shock Wires", 16], 
+               "Blackbeard": ["Use the breach on the H.U.L.L. Adaptable Shield", 5], 
+               "Blitz": ["Flash enemies with the G-52 Tactical Shield", 5], 
+               "Brava": ["Hack cameras with the Kludge Drone", 5], 
+               "Buck": ["Destroy barricades with the Skeleton Key", 5], 
+               "Capitao": ["Shoot fire/smoke arrows", 16], 
+               "Castle": ["Deploy Armor Panels", 16], 
+               "Caveira": ["Down enemies", 3], 
+               "Clash": ["Shock enemies with the CCE Shield MK2", 8], 
+               "Deimos": ["Deploy the Deathmark Tracker", 6], 
+               "Denari": ["Deploy T.R.I.P. Connectors", 30], 
+               "Doc": ["Heal teammates with the Stim Pistol", 10], 
+               "Dokkaebi": ["Call enemies", 6], 
+               "Echo": ["Use the Yokai's disruptor", 10], 
+               "Ela": ["Deploy GRZMOT Mines", 7], 
+               "Fenrir": ["Deploy F-NATT Dread Mines", 10], 
+               "Finka": ["Use Adrenal Surges", 10], 
+               "Flores": ["Deploy RCE-Ratero Charges", 10], 
+               "Frost": ["Deploy Welcome Mats", 9], 
+               "Fuze": ["Activate Cluster Charges", 10], 
+               "Glaz": ["Throw Smoke Grenades", 10], 
+               "Goyo": ["Deploy Volcan Canisters", 20], 
+               "Gridlock": ["Deploy Trax Stingers", 9], 
+               "Grim": ["Shoot the Kawan Hive Launcher", 10], 
+               "Hibana": ["Detonate X-Kairos Charges", 30], 
+               "Iana": ["Use the Gemini Replicator", 5], 
+               "IQ": ["Ping electronics", 3], 
+               "Jackal": ["Detect footsteps with the Eyenox Model III", 2], 
+               "Jager": ["Deploy Active Defense Systems", 15], 
+               "Kaid": ["Electrify walls", 10], 
+               "Kali": ["Fire the LV Explosive Lance", 12], 
+               "Kapkan": ["Deploy Entry Denial Devices", 25], 
+               "Lesion": ["Deploy Gu Mines", 20], 
+               "Lion": ["Use the EE-ONE-D's scan", 10], 
+               "Maestro": ["Deploy Evil Eyes", 15], 
+               "Maverick": ["Make holes using the Breaching Torch", 10], 
+               "Melusi": ["Deploy Banshees", 20], 
+               "Mira": ["Deploy Black Mirrors", 10], 
+               "Montagne": ["Get Le Roc Shield score events", 10], 
+               "Mozzie": ["Shoot the Pest Launcher", 20], 
+               "Mute": ["Deploy Signal Disruptors", 20], 
+               "Nokk": ["Use the Hel Presence Reduction", 10], 
+               "Nomad": ["Launch Airjabs", 8], 
+               "Noor": ["Activate the Horus Lance", 12], 
+               "Oryx": ["Use the Remah Dash", 20], 
+               "Osa": ["Set the Talon-8 Shield down on a surface", 3], 
+               "Pulse": ["Detect enemies with the Cardiac Sensor", 4], 
+               "Ram": ["Deploy BU-GI Auto-Breachers", 10], 
+               "Rauora": ["Launch D.O.M. Panels", 10], 
+               "Rook": ["Put down the Armor Pack", 5], 
+               "Sens": ["Throw R.O.U. Projectors", 10], 
+               "Sentry": ["Deploy Barbed Wire, Bulletproof Cameras, Deployable Shields, Observation Blockers, or Proximity Alarms", 15, ["Barbed Wire", "Bulletproof Camera", "Deployable Shield", "Observation Blocker"]], 
+               "Skopos": ["Switch between the V10 Pantheon Shells", 8], 
+               "Sledge": ["Destroy barricades or walls", 10], 
+               "Smoke": ["Deploy Gas Canisters", 10], 
+               "Solid Snake": ["Scan enemies with the Soliton Radar MK III", 10], 
+               "Solis": ["Detect electronics with the SPEC-IO Electro Sensor", 10], 
+               "Striker": ["Deploy Breach Charges, Claymores, or Hard Breach Charges", 8, ["Breach Charge", "Claymore", "Hard Breach Charge"]], 
+               "Tachanka": ["Fire the Shumikha Launcher", 20], 
+               "Thatcher": ["Disable electronics", 15], 
+               "Thermite": ["Destroy walls with Exothermic Charges", 5], 
+               "Thorn": ["Throw Razorbloom Shells", 15], 
+               "Thunderbird": ["Deploy Kona Stations", 10], 
+               "Tubarao": ["Deploy Frost Canisters", 10], 
+               "Twitch": ["Destroy cameras with the Shock Drone", 15], 
+               "Valkyrie": ["Deploy Black Eye Cameras", 15], 
+               "Vigil": ["Use the ERC-7", 15], 
+               "Wamai": ["Throw MAG-NET systems", 25], 
+               "Warden": ["Use the Glance Smart Glasses", 15], 
+               "Ying": ["Use Candelas", 15], 
+               "Zero": ["Use the Argus Launcher", 15], 
+               "Zofia": ["Fire grenades", 15]}
 
 class EasyChallengeMultiplier(Range):
     """
@@ -284,6 +386,97 @@ class HardChallenges(DefaultOnToggle):
     """
 
     display_name = "Hard Challenges"
+    
+class HardChallengesChallenges(OptionDict):
+    """
+    The hard challenge every operator has.
+    The text is the challenge, and the number is how many times you'll do that objective before it's completed.
+    Blank text and a 0 means that the challenge is disabled.
+    The entries under Striker and Sentry are the gadgets you'll need to complete their challenge.
+    Feel free to scroll past if you want to stick with the default challenges.
+    """
+    
+    display_name = "Hard Challenges: Challenges"
+    
+    schema = weapons_schema
+    
+    default = {"Ace": ["", 0], 
+               "Alibi": ["Trick enemies with Prisma Clones", 2], 
+               "Amaru": ["", 0], 
+               "Aruni": ["Destroy devices with Surya gates or reactivate gates", 4], 
+               "Ash": ["", 0], "Azami": ["", 0], 
+               "Bandit": ["Re-electrify walls", 3], 
+               "Blackbeard": ["", 0], 
+               "Blitz": ["Get flash assist kills", 2], 
+               "Brava": ["Hack defender devices", 5], 
+               "Buck": ["Destroy barricades with the Skeleton Key", 5], 
+               "Capitao": ["", 0], 
+               "Castle": ["", 0], 
+               "Caveira": ["Interrogate enemies", 2], 
+               "Clash": ["Get shock kills/assists", 2], 
+               "Deimos": ["Get kills/assists on Deathmarked enemies", 3], 
+               "Denari": ["Deal damage with T.R.I.P. Connector lasers", 3], 
+               "Doc": ["Heal downed teammates", 3], 
+               "Dokkaebi": ["Deal damage with the Jegeo Payload or hack cameras", 2], 
+               "Echo": ["Interrupt defuser planting", 2], 
+               "Ela": ["Get GRZMOT mine kills/assists", 2], 
+               "Fenrir": ["Get kills/assists with F-NATT Dread Mines", 2], 
+               "Finka": ["Revive downed teammates", 1], 
+               "Flores": ["Destroy defender gadgets", 4], 
+               "Frost": ["Trigger Welcome Mats", 1], 
+               "Fuze": ["Destroy defender gadgets or kill defenders", 4], 
+               "Glaz": ["Get kills through smoke or other vision blockers", 3], 
+               "Goyo": ["Trigger canisters", 10], 
+               "Gridlock": ["Get Trax Stinger kills/assists", 1], 
+               "Grim": ["Ping enemies with the Kawan Hive Launcher", 2], 
+               "Hibana": ["", 0], 
+               "Iana": ["", 0], 
+               "IQ": ["Destroy detected devices", 3], 
+               "Jackal": ["Get footstep detection kills/assists", 1], 
+               "Jager": ["Catch projectiles with the ADS", 4], 
+               "Kaid": ["", 0], 
+               "Kali": ["De-electrify walls", 2], 
+               "Kapkan": ["Get EDD kills/assists", 1], 
+               "Lesion": ["Get Gu Mine kills/assists", 5], 
+               "Lion": ["Detect enemies with the EE-ONE-D", 2], 
+               "Maestro": ["Deny defuser plants", 2], 
+               "Maverick": ["Get kills through blowtorch holes", 2], 
+               "Melusi": ["Get Banshee kills/assists", 3], 
+               "Mira": ["", 0], 
+               "Montagne": ["", 0], 
+               "Mozzie": ["Hack drones or get drone scan assists", 5], 
+               "Mute": ["Disable devices", 3], 
+               "Nokk": ["", 0], 
+               "Nomad": ["Get Airjab kills/assists", 3], 
+               "Noor": ["", 0], 
+               "Oryx": ["Knock down enemies with the Remah Dash", 1], 
+               "Osa": ["", 0], 
+               "Pulse": ["Get Cardiac Sensor kills/assists", 2], 
+               "Ram": ["Get kills through ceilings", 2], 
+               "Rauora": ["Secure a defuser plant", 2], 
+               "Rook": ["", 0], 
+               "Sens": ["Secure a defuser plant", 2], 
+               "Sentry": ["Get kills with Nitro Cells, destroy attacker utility with Impact Grenades, or get Bulletproof Camera assists.", 3, ["Nitro Cell", "Impact Grenade", "Bulletproof Camera"]], 
+               "Skopos": ["Get scan assists with the observation shell", 2], 
+               "Sledge": ["", 0], 
+               "Smoke": ["", 0], 
+               "Solid Snake": ["Get Soliton Radar kills/assists", 3], 
+               "Solis": ["Identify electronics with the overlock", 3], 
+               "Striker": ["", 0, []], 
+               "Tachanka": ["Get kills with the Shumikha Launcher", 2], 
+               "Thatcher": ["", 0], 
+               "Thermite": ["Secure defuser plants", 1], 
+               "Thorn": ["Get Razorbloom Shell kills/assists", 2], 
+               "Thunderbird": ["Heal allies", 10], 
+               "Tubarao": ["Freeze attacker devices or slow down enemies", 2], 
+               "Twitch": ["Get scan assists or destroy defender gadgets", 3], 
+               "Valkyrie": ["Get scan assists", 3], 
+               "Vigil": ["Dodge scans", 7], 
+               "Wamai": ["Capture projectiles", 8], 
+               "Warden": ["Get kills through flashbangs or smoke grenades", 2], 
+               "Ying": ["Get Candela kills/assists", 2], 
+               "Zero": ["Get scan assists", 2], 
+               "Zofia": ["Get concussion grenade kills/assists", 2]}
 
 class HardChallengeMultiplier(Range):
     """
@@ -330,7 +523,7 @@ class WeaponsanityLogic(Choice):
     Any Weapon: any weapon (including secondaries) needs to be unlocked.
     Any Primary: a primary or viable secondary needs to be unlocked.
     Any Viable Weapon: any viable primary or viable secondary needs to be unlocked.
-    Most Popular Weapon: the most popular weapon for the operator needs to be unlocked.
+    Most Popular Weapons: one of the most popular weapons for the operator needs to be unlocked.
     """
 
     display_name = "Weaponsanity Logic"
@@ -341,7 +534,185 @@ class WeaponsanityLogic(Choice):
     option_most_popular_weapon = 3
 
     default = option_any_viable_weapon
+    
+class WeaponsanityLogicViableWeapons(OptionDict):
+    """
+    Which weapons are considered "viable weapons" for each operator in weaponsanity_logic.
+    Feel free to scroll past if you didn't pick this option or want to stick with the default picks.
+    """
+    
+    display_name = "Weaponsanity Logic: Viable Weapons"
+    
+    schema = weapons_schema
+    
+    default = {"Ace": ["AK-12"], 
+               "Alibi": ["MX4 Storm"], 
+               "Amaru": ["G8A1", "SuperNova"], 
+               "Aruni": ["MK 14 EBR"], 
+               "Ash": ["G36C", "R4-C"], 
+               "Azami": ["9x19SVN"], 
+               "Bandit": ["MP7"], 
+               "Blackbeard": ["MK17CQB", "SR-25"], 
+               "Blitz": ["P12"], 
+               "Brava": ["PARA-308"], 
+               "Buck": ["C8-SFW"], 
+               "Capitao": ["M249"], 
+               "Castle": ["UMP45"], 
+               "Caveira": ["M12", "SPAS-15", "LUSION"], 
+               "Clash": ["SPSMG9"], 
+               "Deimos": ["AK-74M", "M590A1", ".44 Vendetta"], 
+               "Denari": ["Scorpion Evo A1"], 
+               "Doc": ["MP5", "P90"], 
+               "Dokkaebi": ["XK23"], 
+               "Echo": ["MP5SD", "SuperNova"], 
+               "Ela": ["Scorpion Evo A1"], 
+               "Fenrir": ["MP7"], 
+               "Finka": ["6P41", "Spear .308"], 
+               "Flores": ["AR33", "SR-25", "T-95 LSW"], 
+               "Frost": ["9mm C1"], 
+               "Fuze": ["AK-12", "6P41"], 
+               "Glaz": ["OTS-03"], 
+               "Goyo": ["Vector .45 ACP", "TCSG12"], 
+               "Gridlock": ["F90", "M245 SAW"], 
+               "Grim": ["552 Commando"], 
+               "Hibana": ["Type-89", "SuperNova"], 
+               "Iana": ["ARX200", "G36C"], 
+               "IQ": ["AUG A2", "G8A1"], 
+               "Jackal": ["C7E", "PDW9"], 
+               "Jager": ["416-C Carbine"], 
+               "Kaid": ["AUG A3", "TCSG12"], 
+               "Kali": ["CSRX 300", "SPSMG9"], 
+               "Kapkan": ["9x19VSN"], 
+               "Lesion": ["T-5 SMG"], 
+               "Lion": ["V308"], 
+               "Maestro": ["ALDA 5.56"], 
+               "Maverick": ["M4"], 
+               "Melusi": ["MP5"], 
+               "Mira": ["Vector .45 ACP"], 
+               "Montagne": ["P9", "LFP586"], 
+               "Mozzie": ["Commando 9"], 
+               "Mute": ["M590A1", "MP5K", "SMG-11"], 
+               "Nokk": ["FMG-9", "SIX12 SD", "PMR90A2"], 
+               "Nomad": ["AK-74M"], 
+               "Noor": ["Commando 9", "ALDA 5.56"], 
+               "Oryx": ["T-5 SMG"], 
+               "Osa": ["556xi", "PDW9"], 
+               "Pulse": ["UMP45"], 
+               "Ram": ["R4-C"], 
+               "Rauora": ["XK23"], 
+               "Rook": ["MP5", "P90"], 
+               "Sens": ["POF-9", "XK23"], 
+               "Sentry": ["Commando 9", "TCSG12"], 
+               "Skopos": ["PCX-33"], 
+               "Sledge": ["L85A2"], 
+               "Smoke": ["M590A1", "SMG-11"], 
+               "Solid Snake": ["F2", "PMR90A2"], 
+               "Solis": ["P90", "SMG-11"], 
+               "Striker": ["M4"], 
+               "Tachanka": ["DP27"], 
+               "Thatcher": ["L85A2", "AR33"], 
+               "Thermite": ["556xi"], 
+               "Thorn": ["UZK50GI"], 
+               "Thunderbird": ["Spear .308", "SPAS-15"], 
+               "Tubarao": ["MPX", "AR-15.50"], 
+               "Twitch": ["F2"], 
+               "Valkyrie": ["MPX"], 
+               "Vigil": ["K1A", "BOSG. 12.2", "SMG-12"], 
+               "Wamai": ["AUG A12"], 
+               "Warden": ["M590A1", "MPX", "SMG-12"], 
+               "Ying": ["T-95 LSW"], 
+               "Zero": ["SC3000K", "MP7"], 
+               "Zofia": ["M762"]}
 
+class WeaponsanityLogicMostPopularWeapons(OptionDict):
+    """
+    Which weapons are considered the "most popular weapons" for each operator in weaponsanity_logic.
+    Feel free to scroll past if you didn't pick this option or want to stick with the default picks.
+    """
+    
+    display_name = "Weaponsanity Logic: Most Popular Weapons"
+    
+    schema = weapons_schema
+    
+    default = {"Ace": ["AK-12"], 
+               "Alibi": ["MX4 Storm"], 
+               "Amaru": ["G8A1"], 
+               "Aruni": ["MK 14 EBR"], 
+               "Ash": ["R4-C"], 
+               "Azami": ["9x19SVN"], 
+               "Bandit": ["MP7"], 
+               "Blackbeard": ["MK17CQB"], 
+               "Blitz": ["P12"], 
+               "Brava": ["PARA-308"], 
+               "Buck": ["C8-SFW"], 
+               "Capitao": ["M249"], 
+               "Castle": ["UMP45"], 
+               "Caveira": ["M12", "SPAS-15", "LUSION"], 
+               "Clash": ["SPSMG9"], 
+               "Deimos": ["AK-74M", ".44 Vendetta"], 
+               "Denari": ["Scorpion Evo A1"], 
+               "Doc": ["MP5"], 
+               "Dokkaebi": ["XK23"], 
+               "Echo": ["MP5SD"], 
+               "Ela": ["Scorpion Evo A1"], 
+               "Fenrir": ["MP7"], 
+               "Finka": ["Spear .308"], 
+               "Flores": ["AR33", "T-95 LSW"], 
+               "Frost": ["9mm C1"], 
+               "Fuze": ["AK-12"], 
+               "Glaz": ["OTS-03"], 
+               "Goyo": ["Vector .45 ACP"], 
+               "Gridlock": ["F90"], 
+               "Grim": ["552 Commando"], 
+               "Hibana": ["Type-89"], 
+               "Iana": ["ARX200", "G36C"], 
+               "IQ": ["AUG A2", "G8A1"], 
+               "Jackal": ["C7E", "PDW9"], 
+               "Jager": ["416-C Carbine"], 
+               "Kaid": ["TCSG12"], 
+               "Kali": ["CSRX 300", "SPSMG9"], 
+               "Kapkan": ["9x19VSN"], 
+               "Lesion": ["T-5 SMG"], 
+               "Lion": ["V308"], 
+               "Maestro": ["ALDA 5.56"], 
+               "Maverick": ["M4"], 
+               "Melusi": ["MP5"], 
+               "Mira": ["Vector .45 ACP"], 
+               "Montagne": ["P9", "LFP586"], 
+               "Mozzie": ["Commando 9"], 
+               "Mute": ["M590A1", "SMG-11"], 
+               "Nokk": ["FMG-9"], 
+               "Nomad": ["AK-74M"], 
+               "Noor": ["Commando 9"], 
+               "Oryx": ["T-5 SMG"], 
+               "Osa": ["556xi", "PDW9"], 
+               "Pulse": ["UMP45"], 
+               "Ram": ["R4-C"], 
+               "Rauora": ["XK23"], 
+               "Rook": ["MP5", "P90"], 
+               "Sens": ["POF-9", "XK23"], 
+               "Sentry": ["TCSG12"], 
+               "Skopos": ["PCX-33"], 
+               "Sledge": ["L85A2"], 
+               "Smoke": ["M590A1", "SMG-11"], 
+               "Solid Snake": ["F2", "PMR90A2"], 
+               "Solis": ["P90", "SMG-11"], 
+               "Striker": ["M4"], 
+               "Tachanka": ["DP27"], 
+               "Thatcher": ["L85A2", "AR33"], 
+               "Thermite": ["556xi"], 
+               "Thorn": ["UZK50GI"], 
+               "Thunderbird": ["Spear .308"], 
+               "Tubarao": ["MPX", "AR-15.50"], 
+               "Twitch": ["F2"], 
+               "Valkyrie": ["MPX"], 
+               "Vigil": ["BOSG. 12.2", "SMG-12"], 
+               "Wamai": ["AUG A12"], 
+               "Warden": ["M590A1", "MPX", "SMG-12"], 
+               "Ying": ["T-95 LSW"], 
+               "Zero": ["SC3000K", "MP7"], 
+               "Zofia": ["M762"]}
+    
 class WeaponsanityLogicBehavior(Choice):
     """
     Changes the behavior when an operator's weapon requirements aren't fulfilled.
@@ -506,14 +877,18 @@ class R6SiegeOptions(PerGameCommonOptions):
     global_kill_counter_logic: GlobalKillCounterLogic
     global_kill_counter_kill_threshold_behavior: GlobalKillCounterKillThresholdBehavior
     easy_challenges: EasyChallenges
+    easy_challenges_challenges: EasyChallengesChallenges
     easy_challenge_multiplier: EasyChallengeMultiplier
     easy_challenge_value: EasyChallengeValue
     hard_challenges: HardChallenges
+    hard_challenges_challenges: HardChallengesChallenges
     hard_challenge_multiplier: HardChallengeMultiplier
     hard_challenge_value: HardChallengeValue
     challenge_assists: ChallengeAssists
     weaponsanity: Weaponsanity
     weaponsanity_logic: WeaponsanityLogic
+    weaponsanity_logic_viable_weapons: WeaponsanityLogicViableWeapons
+    weaponsanity_logic_most_popular_weapons: WeaponsanityLogicMostPopularWeapons
     weaponsanity_logic_behavior: WeaponsanityLogicBehavior
     weaponsanity_logic_behavior_include_out_of_logic_weapons: WeaponsanityLogicBehaviorIncludeOutOfLogicWeapons
     weaponsanity_starting_weapons: WeaponsanityStartingWeapons
@@ -542,11 +917,11 @@ option_groups = [
     ),
     OptionGroup(
         "Challenges",
-        [EasyChallenges, EasyChallengeMultiplier, EasyChallengeValue, HardChallenges, HardChallengeMultiplier, HardChallengeValue, ChallengeAssists]
+        [EasyChallenges, EasyChallengesChallenges, EasyChallengeMultiplier, EasyChallengeValue, HardChallenges, HardChallengesChallenges, HardChallengeMultiplier, HardChallengeValue, ChallengeAssists]
     ),
     OptionGroup(
         "Weaponsanity",
-        [Weaponsanity, WeaponsanityLogic, WeaponsanityLogicBehavior, WeaponsanityLogicBehaviorIncludeOutOfLogicWeapons, WeaponsanityStartingWeapons, WeaponsanityInLogicStartingWeapons,  WeaponsanityAllWeaponsKillThreshold]
+        [Weaponsanity, WeaponsanityLogic, WeaponsanityLogicViableWeapons, WeaponsanityLogicMostPopularWeapons, WeaponsanityLogicBehavior, WeaponsanityLogicBehaviorIncludeOutOfLogicWeapons, WeaponsanityStartingWeapons, WeaponsanityInLogicStartingWeapons,  WeaponsanityAllWeaponsKillThreshold]
     ),
     OptionGroup(
         "Abilitysanity",

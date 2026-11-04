@@ -63,15 +63,15 @@ def create_abilitysanity_rule(world: R6SiegeWorld, operator: str, challenge_type
         
         if operator == "Striker":
             if challenge_type == "Easy":
-                return HasAny(*operator_data.striker_easy_challenge_gadgets)
+                return HasAny(*name_to_operator_data("Striker").easy_challenge_gadgets)
             else:
-                return HasAny(*operator_data.striker_hard_challenge_gadgets)
+                return HasAny(*name_to_operator_data("Striker").hard_challenge_gadgets)
         
         elif operator == "Sentry":
             if challenge_type == "Easy":
-                return HasAny(*operator_data.sentry_easy_challenge_gadgets)
+                return HasAny(*name_to_operator_data("Sentry").easy_challenge_gadgets)
             else:
-                return HasAny(*operator_data.sentry_hard_challenge_gadgets)
+                return HasAny(*name_to_operator_data("Sentry").hard_challenge_gadgets)
                 
         else:
             return Has(name_to_operator_data(operator).ability)

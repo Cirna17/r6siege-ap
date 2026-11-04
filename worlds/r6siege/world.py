@@ -2,7 +2,7 @@ from worlds.AutoWorld import World
 from collections.abc import Mapping
 from typing import Any
 
-from . import items, locations, generation, web_world
+from . import items, locations, generation, operator_data, web_world
 from . import options as r6siege_options
 
 class R6SiegeWorld(World):
@@ -27,6 +27,7 @@ class R6SiegeWorld(World):
 
     def generate_early(self) -> None:
         r6siege_options.validate_options(self)
+        operator_data.assign_challenges_and_weapons_from_options(self)
                 
         self.selected_operators = self.random.sample(sorted(self.options.allowed_operators.value),
                                                  k = self.options.goal_operators.value + self.options.extra_operators.value 
