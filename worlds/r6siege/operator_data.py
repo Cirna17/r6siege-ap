@@ -129,7 +129,7 @@ castle = Operator(
 
 caveira = Operator(
     "Caveira", 
-    ["M12", "SPAS-15"], ["LUSION"], 
+    ["M12", "SPAS-15"], ["Luison"], 
     "Silent Step", 
     ["Proximity Alarm", "Impact Grenade", "Observation Blocker"], 
     "Defender")
@@ -164,7 +164,7 @@ doc = Operator(
 
 dokkaebi = Operator(
     "Dokkaebi", 
-    ["BOSG. 12.2", "MK 14 EBR", "XK23"], ["GONNE-6", "SMG-12", "C75 Auto"], 
+    ["BOSG.12.2", "MK 14 EBR", "XK23"], ["GONNE-6", "SMG-12", "C75 Auto"], 
     "Jegeo Payload", 
     ["Smoke Grenade", "Impact EMP Grenade"], 
     "Attacker")
@@ -542,7 +542,7 @@ valkyrie = Operator(
 
 vigil = Operator(
     "Vigil", 
-    ["K1A", "BOSG. 12.2"], ["C75 Auto", "SMG-12"], 
+    ["K1A", "BOSG.12.2"], ["C75 Auto", "SMG-12"], 
     "ERC-7", 
     ["Impact Grenade", "Bulletproof Camera"], 
     "Defender")

@@ -48,7 +48,7 @@ class R6SiegeWorld(World):
     def fill_slot_data(self) -> Mapping[str, Any]:
         return self.options.as_dict(
             "kill_threshold", "kill_threshold_amount", "kill_threshold_assists", "global_kill_counter", "global_kill_counter_count",
-            "global_kill_counter_kill_threshold_behavior", "easy_challenges", "easy_challenge_multiplier", "hard_challenges",
-            "hard_challenge_multiplier", "challenge_assists", "weaponsanity", "weaponsanity_logic", "weaponsanity_logic_behavior",
+            "global_kill_counter_kill_threshold_behavior", "easy_challenges", "easy_challenges_challenges", "easy_challenge_multiplier", "hard_challenges",
+            "hard_challenges_challenges", "hard_challenge_multiplier", "challenge_assists", "weaponsanity", "weaponsanity_logic", "weaponsanity_logic_viable_weapons", "weaponsanity_logic_most_popular_weapons", "weaponsanity_logic_behavior",
             "weaponsanity_all_weapons_kill_threshold", "abilitysanity", "abilitysanity_gadget_kit", "gadgetsanity"
         ).update({"selected_operators": self.selected_operators})
